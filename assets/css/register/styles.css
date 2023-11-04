@@ -1,0 +1,130 @@
+:root {
+    --radius: 30px;
+    --red: #FF0000;
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+    background: linear-gradient(0deg, rgb(21, 74, 189) 0.1%, rgb(26, 138, 211) 51.5%, rgb(72, 177, 234) 100.2%);
+
+    font-family: Lato, monospace;
+}
+
+img {
+    --size: 100px;
+
+    width: var(--size);
+    height: var(--size);
+}
+
+input {
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px;
+
+    font-weight: bold;
+    font-family: Lato, monospace;
+
+    caret: var(--black);
+
+    &:focus {
+        outline: none;
+    }
+}
+
+select {
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px;
+
+    font-weight: bold;
+    font-family: Lato, monospace;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    border-radius: var(--radius);
+    border: none;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
+
+    color: var(--white);
+    background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #0084FF 42.37%, #055CCF 100%);
+
+    font-family: Lato, monospace;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+h2 {
+    margin: 0;
+}
+
+p {
+    font-size: 14px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    width: 25%;
+    padding: 30px 60px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    background: rgba(255, 255, 255, 0.2);
+
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    overflow: auto;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.error {
+    display: none;
+
+    color: var(--red);
+
+    font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+    .form-container {
+        padding: 5px 20px;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    .form-container {
+        width: 40%;
+        padding: 5px 30px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .form-container {
+        width: 40%;
+        padding: 5px 30px;
+    }
+}
