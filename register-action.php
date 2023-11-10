@@ -8,5 +8,3 @@ $birthdate = $_POST['birthdate'];
 $role = $_POST['role'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-
-

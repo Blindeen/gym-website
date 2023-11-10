@@ -51,12 +51,6 @@ header {
 
         text-decoration: none;
         font-weight: bold;
-
-        &:hover {
-            text-decoration: underline;
-        }
-
-        transition: text-decoration 0.25s;
     }
 
     & img {
@@ -80,6 +74,32 @@ h2 {
     border: none;
 
     background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #FE6D6D 42.37%, #FF1D1D 100%);
+}
+
+.link {
+    position: relative;
+
+    &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        height: 2px;
+        width: 100%;
+
+        background-color: var(--white);
+
+        transform: scaleX(0);
+        transform-origin: bottom left;
+        content: '';
+        transition: transform 0.25s ease-out;
+    }
+
+    &:hover {
+        &::after {
+            transform: scaleX(1);
+        }
+    }
 }
 
 .first-section {
@@ -207,7 +227,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: end;
-    flex: 1;
+    flex-grow: 1;
     height: inherit;
 
     & img {
@@ -227,12 +247,14 @@ h2 {
 }
 
 .service {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     border-radius: var(--radius);
 
     background-color: var(--white);
-
-    text-align: center;
 
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 

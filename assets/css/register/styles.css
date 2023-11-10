@@ -76,6 +76,10 @@ p {
     font-size: 14px;
 }
 
+#payment-method {
+    display: none;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
