@@ -1,18 +1,19 @@
 const passwordInput = document.querySelector('#password');
-const confirmPasswordInput = document.querySelector("#confirm-password");
-const confirmPasswordError = document.querySelector("#confirm-password-error");
+const confirmPasswordInput = document.querySelector('#confirm-password');
+const confirmPasswordError = document.querySelector('#confirm-password-error');
+const roleSelect = document.querySelector('#role');
+const paymentMethodSelect = document.querySelector('#payment-method')
 
-let timeoutID;
+const roles = {
+    trainer: '0',
+    client: '1',
+}
 
-confirmPasswordInput.addEventListener("input", () => {
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(() => {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordError.innerText = 'Passwords aren\'t identical';
-            confirmPasswordError.style.display = 'block';
-        } else {
-            confirmPasswordError.innerText = '';
-            confirmPasswordError.style.display = 'none';
-        }
-    }, 300);
-});
+roleSelect.addEventListener('change', () => {
+    if (roleSelect.value === roles.client) {
+        paymentMethodSelect.style.display = 'block';
+        console.log(roleSelect.value);
+    } else {
+        paymentMethodSelect.style.display = 'none';
+    }
+})

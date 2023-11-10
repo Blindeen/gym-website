@@ -1,6 +1,5 @@
 <?php
 include "db-connection.php";
-$result = $conn->query("SELECT * FROM Roles");
 ?>
 
 <!DOCTYPE html>
@@ -22,14 +21,30 @@ $result = $conn->query("SELECT * FROM Roles");
                minlength="2"/>
     </div>
     <input type="date" name="birthdate"/>
-    <select name="role">
+    <select id="role" name="role">
         <option id="placeholder" selected hidden>Select a role</option>
         <?php
+        $result = $conn->query("SELECT * FROM Roles");
         while ($row = $result->fetch_array(MYSQLI_ASSOC)):
             ?>
 
             <option value="<?php echo $row["ID"]; ?>">
                 <?php echo $row["Name"]; ?>
+            </option>
+
+        <?php
+        endwhile;
+        ?>
+    </select>
+    <select id="payment-method" name="payment-method">
+        <option id="placeholder" selected hidden>Payment Methods</option>
+        <?php
+        $result = $conn->query("SELECT * FROM PaymentMethods");
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)):
+            ?>
+
+            <option value="<?php echo $row["ID"]; ?>">
+                <?php echo $row["Type"]; ?>
             </option>
 
         <?php
