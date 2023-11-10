@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="mobile-menu">
-    <a href="/">Home</a>
+    <a href="/">jd</a>
     <a href="#">Classes</a>
     <a href="#">Trainers</a>
     <a href="#">Contact</a>
@@ -20,10 +20,10 @@
 <div class="first-section">
     <header>
         <img src="assets/img/logo.png" alt="logo"/>
-        <a href="/">Home</a>
-        <a href="#">Classes</a>
-        <a href="#">Trainers</a>
-        <a href="#">Contact</a>
+        <a class="link" href="/">Home</a>
+        <a class="link" href="#">Classes</a>
+        <a class="link" href="#">Trainers</a>
+        <a class="link" href="#">Contact</a>
         <a id="link-register-button" class="link-button" href="/register.php">Buy
             pass</a>
         <a class="link-button" href="/login.php">Login</a>
