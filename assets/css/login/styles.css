@@ -65,7 +65,16 @@ h2 {
 }
 
 p {
+    margin: 0;
+
     font-size: 14px;
+}
+
+#submit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 .form-container {
@@ -86,11 +95,7 @@ p {
 }
 
 .error {
-    display: none;
-
     color: var(--red);
-
-    font-size: 12px;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,3 +1,11 @@
+<?php
+include 'login-action.php';
+
+session_start();
+if ($_SESSION['id']) {
+    header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +16,16 @@
     <title>FitSphere - Login</title>
 </head>
 <body>
-<form class="form-container">
+<form class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
     <h2>Sign in</h2>
-    <input id="email" type="email" placeholder="Email"/>
-    <input id="password" type="password" placeholder="Password"/>
-    <div>
+    <input id="email" name="email" type="email" placeholder="Email" required/>
+    <input id="password" name="password" type="password" placeholder="Password" required/>
+    <div id="submit">
         <button type="submit">Sign in</button>
+        <?php if (isset($error)) echo $error; ?>
         <p>Don't have an account? <a href="register.php">Sign up</a></p>
     </div>
 </form>
+<script src="assets/js/login.js"></script>
 </body>
 </html>
