@@ -1,10 +1,6 @@
 <?php
+include 'src/private-route.php';
 include 'src/actions/login-action.php';
-
-session_start();
-if (isset($_SESSION['id'])) {
-    header('Location: ' . INDEX_PAGE);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
