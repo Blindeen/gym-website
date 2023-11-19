@@ -15,7 +15,7 @@
     <a href="#">Trainers</a>
     <a href="#">Contact</a>
     <?php
-    if (!$_SESSION['id']) {
+    if (!isset($_SESSION['id'])) {
         echo '<a href="/register.php">Buy pass</a>';
         echo '<a href="/login.php">Login</a>';
     }
@@ -30,7 +30,7 @@
         <a class="link" href="#">Trainers</a>
         <a class="link" href="#">Contact</a>
         <?php
-        if (!$_SESSION['id']) {
+        if (!isset($_SESSION['id'])) {
             echo '<a id="link-register-button" class="link-button" href="/register.php">Buy pass</a>';
             echo '<a class="link-button" href="/login.php">Login</a>';
         }

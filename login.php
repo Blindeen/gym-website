@@ -1,9 +1,9 @@
 <?php
-include 'login-action.php';
+include 'src/actions/login-action.php';
 
 session_start();
-if ($_SESSION['id']) {
-    header('Location: index.php');
+if (isset($_SESSION['id'])) {
+    header('Location: ' . INDEX_PAGE);
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ if ($_SESSION['id']) {
     <title>FitSphere - Login</title>
 </head>
 <body>
-<form class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+<form class="form-container" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <h2>Sign in</h2>
     <input id="email" name="email" type="email" placeholder="Email" required/>
     <input id="password" name="password" type="password" placeholder="Password" required/>
