@@ -14,8 +14,14 @@ include 'src/actions/login-action.php';
 <body>
 <form class="form-container" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <h2>Sign in</h2>
-    <input id="email" name="email" type="email" placeholder="Email" required/>
-    <input id="password" name="password" type="password" placeholder="Password" required/>
+    <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Email" required/>
+    </div>
+    <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Password" required/>
+    </div>
     <div id="submit">
         <button type="submit">Sign in</button>
         <?php if (isset($error)) echo $error; ?>
