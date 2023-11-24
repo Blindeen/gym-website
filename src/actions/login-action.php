@@ -1,30 +1,27 @@
 <?php
 require_once 'src/db-connection.php';
+require_once 'src/utils.php';
+
+$conn = db_connection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    $result = null;
     $user_info = null;
     $role = null;
     $error = null;
 
     try {
-        $stm = $conn->prepare('SELECT ID, Password, RoleID FROM Members WHERE Email = ?');
-        $stm->bind_param('s', $email);
-        $stm->execute();
-        $result = $stm->get_result();
+        $result = perform_query($conn, 'SELECT ID, Password, RoleID FROM Members WHERE Email = ?', [$email], 's');
         $user_info = $result->fetch_assoc();
 
         if (isset($user_info)) {
-            $stm = $conn->prepare('SELECT Name FROM Roles WHERE ID = ?');
-            $stm->bind_param('s', $user_info['RoleID']);
-            $stm->execute();
-            $role = $stm->get_result()->fetch_assoc();
+            $result = perform_query($conn, 'SELECT Name FROM Roles WHERE ID = ?', [$user_info['RoleID']], 's');
+            $role = $result->fetch_assoc();
         }
     } catch (mysqli_sql_exception $exception) {
-        die('Execution failed: ' . $exception->getMessage());
+        exit(SERVER_ERROR_MESSAGE);
     }
 
     if (isset($user_info) and isset($role)) {
