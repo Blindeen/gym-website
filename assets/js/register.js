@@ -1,18 +1,15 @@
-const roleSelect = document.querySelector('#role');
-const paymentMethodSelect = document.querySelector('.field:has(#payment-method)');
-const passTypeSelect = document.querySelector('.field:has(#pass)');
+const form = document.querySelector('form');
+const submitButton = document.querySelector('button[type="submit"]');
 
-const roles = {
-    trainer: '0',
-    client: '1',
-};
+const tagNames = ['INPUT', 'SELECT'];
+const redColor = '#FF0000';
 
-roleSelect.addEventListener('change', () => {
-    if (roleSelect.value === roles.client) {
-        paymentMethodSelect.style.display = 'block';
-        passTypeSelect.style.display = 'block';
-    } else {
-        paymentMethodSelect.style.display = 'none';
-        passTypeSelect.style.display = 'none';
-    }
+submitButton.addEventListener('click', () => {
+    const entries = Object.entries(form.elements);
+    const filteredEntries = entries.filter(([_, val]) => tagNames.includes(val.tagName));
+    filteredEntries.forEach(([_, element]) => {
+        if (!element.value) {
+            element.style.borderColor = redColor;
+        }
+    });
 });
