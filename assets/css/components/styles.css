@@ -1,0 +1,83 @@
+:root {
+    --radius: 30px;
+    --padding: 10px;
+    --blue: #154ABD;
+    --red: #FF0000;
+}
+
+input {
+    box-sizing: border-box;
+    border: 2px solid var(--blue);
+    border-radius: var(--radius);
+    padding: var(--padding);
+
+    font-weight: bold;
+    font-family: Lato, monospace;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        opacity: 0.2;
+    }
+}
+
+button {
+    width: 100%;
+    border-radius: var(--radius);
+    border: none;
+    padding: var(--padding);
+    box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
+
+    color: var(--white);
+    background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #0084FF 42.37%, #055CCF 100%);
+
+    font-family: Lato, monospace;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+select {
+    border: 2px solid var(--blue);
+    border-radius: var(--radius);
+    padding: var(--padding);
+
+    font-weight: bold;
+    font-family: Lato, monospace;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.field {
+    position: relative;
+    width: 100%;
+
+    font-size: 13px;
+
+    & label {
+        position: absolute;
+        left: 20px;
+        top: -6.4px;
+        padding: 0 5px;
+
+        background-color: var(--white);
+
+        &::before {
+            content: '* ';
+
+            color: var(--red);
+        }
+    }
+
+    & input, & select {
+        width: 100%;
+    }
+}
+
+.error {
+    color: var(--red);
+}

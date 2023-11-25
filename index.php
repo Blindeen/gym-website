@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +10,16 @@
 </head>
 <body>
 <div class="mobile-menu">
-    <a href="/">jd</a>
+    <a href="/">Home</a>
     <a href="#">Classes</a>
     <a href="#">Trainers</a>
     <a href="#">Contact</a>
-    <a href="/register.php">Buy pass</a>
-    <a href="/login.php">Login</a>
+    <?php
+    if (!isset($_SESSION['id'])) {
+        echo '<a href="/register.php">Buy pass</a>';
+        echo '<a href="/login.php">Login</a>';
+    }
+    ?>
     <div class="hamburger-close-button">X</div>
 </div>
 <div class="first-section">
@@ -24,9 +29,12 @@
         <a class="link" href="#">Classes</a>
         <a class="link" href="#">Trainers</a>
         <a class="link" href="#">Contact</a>
-        <a id="link-register-button" class="link-button" href="/register.php">Buy
-            pass</a>
-        <a class="link-button" href="/login.php">Login</a>
+        <?php
+        if (!isset($_SESSION['id'])) {
+            echo '<a id="link-register-button" class="link-button" href="/register.php">Buy pass</a>';
+            echo '<a class="link-button" href="/login.php">Login</a>';
+        }
+        ?>
     </header>
     <header class="mobile-header">
         <h2>FitSphere</h2>
