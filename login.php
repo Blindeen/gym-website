@@ -1,6 +1,8 @@
 <?php
-include 'src/private-route.php';
+include 'src/utils.php';
 include 'src/actions/login-action.php';
+
+private_route(GUEST, INDEX_PAGE);
 ?>
 <!DOCTYPE html>
 <html lang="en">

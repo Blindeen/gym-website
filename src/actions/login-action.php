@@ -26,8 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($user_info) and isset($role)) {
         if (password_verify($password, $user_info['Password'])) {
+            session_start();
             $_SESSION['id'] = $user_info['ID'];
             $_SESSION['role'] = $role['Name'];
+
             header('Location: ' . INDEX_PAGE);
         } else {
             $error = '<p class="error">Incorrect password</p>';

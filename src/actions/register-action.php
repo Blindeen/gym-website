@@ -52,7 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit(SERVER_ERROR_MESSAGE);
     }
 
+    session_start();
     $_SESSION['id'] = $member_data['ID'];
-    $_SESSION['role'] = CLIENT_ROLE;
+    $_SESSION['role'] = CLIENT;
+
     header('Location: ' . INDEX_PAGE);
 }
