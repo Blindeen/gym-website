@@ -18,11 +18,11 @@ include 'src/actions/register-action.php';
     <div class="form-row">
         <div class="field">
             <label for="first-name">First name</label>
-            <input id="first-name" type="text" name="first-name" placeholder="Josh" minlength="2" required/>
+            <input id="first-name" type="text" name="first-name" placeholder="Josh" minlength="2" pattern="[a-z,A-Z,\s]{2,}" required/>
         </div>
         <div class="field">
             <label for="last-name">Last name</label>
-            <input id="last-name" type="text" name="last-name" placeholder="Price" minlength="2" required/>
+            <input id="last-name" type="text" name="last-name" placeholder="Price" minlength="2" pattern="[a-z,A-Z,\s,-]{2,}" required/>
         </div>
     </div>
     <div class="form-row">
