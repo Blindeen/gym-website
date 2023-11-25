@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $role = $result->fetch_assoc();
         }
     } catch (mysqli_sql_exception $exception) {
-        exit(SERVER_ERROR_MESSAGE);
+        exit(CONSTANTS['SERVER_ERROR_MESSAGE']);
     }
 
     if (isset($user_info) and isset($role)) {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['id'] = $user_info['ID'];
             $_SESSION['role'] = $role['Name'];
 
-            header('Location: ' . INDEX_PAGE);
+            header('Location: ' . CONSTANTS['INDEX_PAGE']);
         } else {
             $error = '<p class="error">Incorrect password</p>';
         }

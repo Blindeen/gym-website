@@ -4,11 +4,19 @@ require_once 'constants.php';
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 function db_connection() {
+    [
+        'SERVERNAME' => $servername,
+        'USERNAME' => $username,
+        'PASSWORD' => $password,
+        'DATABASE' => $database,
+        'PORT' => $port,
+        'SERVER_ERROR_MESSAGE' => $server_error_message,
+    ] = CONSTANTS;
     try {
-        $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+        $conn = new mysqli($servername, $username, $password, $database, $port);
     } catch (mysqli_sql_exception $exception) {
         error_log("Error: " . $exception->getMessage());
-        exit('Something went wrong. Please try again later.');
+        exit($server_error_message);
     }
 
     return $conn;

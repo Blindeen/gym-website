@@ -1,8 +1,9 @@
 <?php
-include 'src/utils.php';
-include 'src/actions/register-action.php';
+require_once 'src/utils.php';
+require_once 'src/actions/register-action.php';
 
-private_route(GUEST, INDEX_PAGE);
+['GUEST' => $guest, 'INDEX_PAGE' => $index] = CONSTANTS;
+private_route($guest, $index);
 ?>
 <!DOCTYPE html>
 <html lang="en">

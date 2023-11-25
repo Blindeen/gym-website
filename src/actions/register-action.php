@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         perform_query($conn, $query, $params, 'sssssss');
     } catch (mysqli_sql_exception $exception) {
         error_log('Exception: ' . $exception->getMessage());
-        if ($exception->getCode() == DUPLICATE_ERROR) {
+        if ($exception->getCode() == CONSTANTS['DUPLICATE_ERROR']) {
             $error = '<p class="error">User already exists</p>';
             return;
         } else {
-            exit(SERVER_ERROR_MESSAGE);
+            exit(CONSTANTS['SERVER_ERROR_MESSAGE']);
         }
     }
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $member_data = $result->fetch_assoc();
     } catch (mysqli_sql_exception $exception) {
         error_log('Execution failed: ' . $exception->getMessage());
-        exit(SERVER_ERROR_MESSAGE);
+        exit(CONSTANTS['SERVER_ERROR_MESSAGE']);
     }
 
     $query = 'INSERT INTO AddressesContacts (AddressLine, City, PostalCode, PhoneNumber, MemberID)
@@ -49,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         perform_query($conn, $query, $params, 'ssssi');
     } catch (mysqli_sql_exception $exception) {
         error_log('Execution failed: ' . $exception->getMessage());
-        exit(SERVER_ERROR_MESSAGE);
+        exit(CONSTANTS['SERVER_ERROR_MESSAGE']);
     }
 
     session_start();
     $_SESSION['id'] = $member_data['ID'];
-    $_SESSION['role'] = CLIENT;
+    $_SESSION['role'] = CONSTANTS['CLIENT'];
 
-    header('Location: ' . INDEX_PAGE);
+    header('Location: ' . CONSTANTS['INDEX_PAGE']);
 }
