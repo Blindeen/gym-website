@@ -17,11 +17,11 @@ include 'src/actions/login-action.php';
     <h2>Sign in</h2>
     <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="Email" required/>
+        <input id="email" name="email" type="email" required/>
     </div>
     <div class="field">
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" placeholder="Password" required/>
+        <input id="password" name="password" type="password" required/>
     </div>
     <div id="submit">
         <button type="submit">Sign in</button>

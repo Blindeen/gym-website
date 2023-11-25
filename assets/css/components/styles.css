@@ -52,6 +52,32 @@ select {
     }
 }
 
+.field {
+    position: relative;
+    width: 100%;
+
+    font-size: 13px;
+
+    & label {
+        position: absolute;
+        left: 20px;
+        top: -6.4px;
+        padding: 0 5px;
+
+        background-color: var(--white);
+
+        &::before {
+            content: '* ';
+
+            color: var(--red);
+        }
+    }
+
+    & input, & select {
+        width: 100%;
+    }
+}
+
 .error {
     color: var(--red);
 }

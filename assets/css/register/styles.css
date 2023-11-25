@@ -48,32 +48,6 @@ p {
     }
 }
 
-.field {
-    position: relative;
-    width: 100%;
-
-    font-size: 12px;
-
-    & label {
-        position: absolute;
-        left: 20px;
-        top: -0.4rem;
-        padding: 0 5px;
-
-        background-color: var(--white);
-
-        &::before {
-            content: '* ';
-
-            color: var(--red);
-        }
-    }
-
-    & input, & select {
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: 600px) {
     .form-container {
         width: 95%;

@@ -51,25 +51,6 @@ p {
     -webkit-backdrop-filter: blur(5px);
 }
 
-.field {
-    position: relative;
-
-    font-size: 12px;
-
-    & label {
-        position: absolute;
-        left: 20px;
-        top: -0.4rem;
-        padding: 0 5px;
-
-        background-color: var(--white);
-    }
-
-    & input, & select {
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: 768px) {
     .form-container {
         width: 30%;
