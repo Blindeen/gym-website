@@ -1,6 +1,9 @@
 <?php
-include 'src/private-route.php';
-include 'src/actions/login-action.php';
+require_once 'src/utils.php';
+require_once 'src/actions/login-action.php';
+
+['GUEST' => $guest, 'INDEX_PAGE' => $index] = CONSTANTS;
+private_route($guest, $index);
 ?>
 <!DOCTYPE html>
 <html lang="en">
