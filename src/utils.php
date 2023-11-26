@@ -18,10 +18,10 @@ function private_route(string|null $expected_account_type, string $redirect_path
         session_start();
     }
 
-    $id = null;
-    if (isset($_SESSION['id'])) {
-        $id = $_SESSION['id'];
+    $role = null;
+    if (isset($_SESSION['role'])) {
+        $role = $_SESSION['role'];
     }
-    $authorization = ($expected_account_type == $id);
+    $authorization = ($expected_account_type == $role);
     if (!$authorization) header('Location: ' . $redirect_path);
 }
