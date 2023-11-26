@@ -3,7 +3,8 @@ require_once 'constants.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-function db_connection() {
+function db_connection(): mysqli
+{
     [
         'SERVERNAME' => $servername,
         'USERNAME' => $username,
