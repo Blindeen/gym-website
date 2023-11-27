@@ -38,16 +38,6 @@ p {
     background-color: var(--white);
 }
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-
-    & input[type="number"] {
-        width: 30%;
-    }
-}
-
 @media screen and (max-width: 600px) {
     .form-container {
         width: 95%;
