@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+require_once 'src/constants.php';
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +23,16 @@
         echo '<a href="/register.php">Buy pass</a>';
         echo '<a href="/login.php">Login</a>';
     }
+
+    if (isset($_SESSION['role'])) {
+        switch ($_SESSION['role']) {
+            case CONSTANTS['TRAINER']:
+                echo '<a class="link" href="/trainer-dashboard.php">Dashboard</a>';
+                break;
+            case CONSTANTS['CLIENT']:
+                echo '<a class="link" href="/client-dashboard.php">My activities</a>';
+        }
+    }
     ?>
     <div class="hamburger-close-button">X</div>
 </div>
@@ -33,6 +47,16 @@
         if (!isset($_SESSION['id'])) {
             echo '<a id="link-register-button" class="link-button" href="/register.php">Buy pass</a>';
             echo '<a class="link-button" href="/login.php">Login</a>';
+        }
+
+        if (isset($_SESSION['role'])) {
+            switch ($_SESSION['role']) {
+                case CONSTANTS['TRAINER']:
+                    echo '<a class="link" href="/trainer-dashboard.php">Dashboard</a>';
+                    break;
+                case CONSTANTS['CLIENT']:
+                    echo '<a class="link" href="/client-dashboard.php">My activities</a>';
+            }
         }
         ?>
     </header>
