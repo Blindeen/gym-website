@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+
+    background: linear-gradient(0deg, rgb(21, 74, 189) 0.1%, rgb(26, 138, 211) 51.5%, rgb(72, 177, 234) 100.2%);
+
+    font-family: Lato, monospace;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+
+    background-color: var(--white);
+}
+
+label {
+    &::before {
+        content: '' !important;
+    }
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#dashboard {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-radius: var(--radius);
+
+    background-color: var(--white);
+}
+
+.pane {
+
+}
