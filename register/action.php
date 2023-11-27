@@ -1,6 +1,6 @@
 <?php
-require_once 'src/db-connection.php';
-require_once 'src/utils.php';
+require_once '../db-connection.php';
+require_once '../utils.php';
 
 $conn = db_connection();
 

@@ -1,6 +1,6 @@
 <?php
-require_once 'src/utils.php';
-require_once 'src/db-connection.php';
+require_once '../utils.php';
+require_once '../db-connection.php';
 
 $conn = db_connection();
 
@@ -12,13 +12,13 @@ private_route($trainer, $index);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/trainer-dashboard/styles.css">
-    <link rel="stylesheet" href="assets/css/components/styles.css">
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../assets/css/components/styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
     <title>FitSphere - Trainer dashboard</title>
 </head>
 <body>
-<?php require_once 'src/header.php' ?>
+<?php require_once '../header.php' ?>
 <main>
     <div id="dashboard">
         <div class="pane">

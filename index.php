@@ -1,5 +1,5 @@
 <?php
-require_once 'src/constants.php';
+require_once 'constants.php';
 
 session_start();
 ?>
@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/index/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <title>FitSphere</title>
 </head>
@@ -20,14 +20,14 @@ session_start();
     <a href="#">Contact</a>
     <?php
     if (!isset($_SESSION['id'])) {
-        echo '<a href="/register.php">Buy pass</a>';
-        echo '<a href="/login.php">Login</a>';
+        echo '<a href="/register/index.php">Buy pass</a>';
+        echo '<a href="/login/index.php">Login</a>';
     }
 
     if (isset($_SESSION['role'])) {
         switch ($_SESSION['role']) {
             case CONSTANTS['TRAINER']:
-                echo '<a class="link" href="/trainer-dashboard.php">Dashboard</a>';
+                echo '<a class="link" href="/trainer-dashboard/index.php">Dashboard</a>';
                 break;
             case CONSTANTS['CLIENT']:
                 echo '<a class="link" href="/client-dashboard.php">My activities</a>';
@@ -45,14 +45,14 @@ session_start();
         <a class="link" href="#">Contact</a>
         <?php
         if (!isset($_SESSION['id'])) {
-            echo '<a id="link-register-button" class="link-button" href="/register.php">Buy pass</a>';
-            echo '<a class="link-button" href="/login.php">Login</a>';
+            echo '<a id="link-register-button" class="link-button" href="/register/index.php">Buy pass</a>';
+            echo '<a class="link-button" href="/login/index.php">Login</a>';
         }
 
         if (isset($_SESSION['role'])) {
             switch ($_SESSION['role']) {
                 case CONSTANTS['TRAINER']:
-                    echo '<a class="link" href="/trainer-dashboard.php">Dashboard</a>';
+                    echo '<a class="link" href="/trainer-dashboard/index.php">Dashboard</a>';
                     break;
                 case CONSTANTS['CLIENT']:
                     echo '<a class="link" href="/client-dashboard.php">My activities</a>';
@@ -120,8 +120,8 @@ session_start();
             <h3>
                 Services
             </h3>
-            <a href="/register.php">Buy pass</a>
-            <a href="/login.php">Login</a>
+            <a href="/register/index.php">Buy pass</a>
+            <a href="/login/index.php">Login</a>
         </div>
         <div class="footer-column">
             <h3>
@@ -132,6 +132,6 @@ session_start();
     </div>
     <p>© Copyright 2023 FitSphere S.A.</p>
 </footer>
-<script src="assets/js/index.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>

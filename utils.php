@@ -1,6 +1,4 @@
 <?php
-require_once 'src/constants.php';
-
 function perform_query(mysqli $conn, string $query, array $params, string $types): false|mysqli_result
 {
     $stm = $conn->prepare($query);
