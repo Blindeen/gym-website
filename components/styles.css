@@ -67,6 +67,32 @@ header {
     }
 }
 
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+thead {
+    background-color: #dddddd;
+    position: sticky;
+    top: -1px;
+}
+
+tr {
+    height: 50px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+td {
+    text-align: left;
+}
+
 #logout {
     display: flex;
     flex-direction: row;
