@@ -31,15 +31,46 @@ main {
     height: 100%;
 }
 
+h2 {
+    margin: 0 0 10px;
+}
+
 #dashboard {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    padding: 20px;
+    padding: 30px;
     border-radius: var(--radius);
 
     background-color: var(--white);
 }
 
-.pane {
+#form-wrapper {
+    width: 50%;
+}
 
+.remove-button {
+    width: 100%;
+    border-radius: var(--radius);
+    border: none;
+    padding: 8px;
+
+    color: var(--white);
+    background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #FE6D6D 42.37%, #FF1D1D 100%);
+
+    font-family: Lato, monospace;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pane {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 426px) {
+    #dashboard {
+        width: 100%;
+        padding: var(--radius) 0;
+    }
 }

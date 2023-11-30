@@ -73,12 +73,6 @@ table {
     width: 100%;
 }
 
-thead {
-    background-color: #dddddd;
-    position: sticky;
-    top: -1px;
-}
-
 tr {
     height: 50px;
 }
@@ -91,6 +85,33 @@ td, th {
 
 td {
     text-align: left;
+}
+
+#table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    white-space: nowrap;
+}
+
+#pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#pagination {
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+
+    & a {
+        text-decoration: none;
+    }
+}
+
+#empty-row {
+    text-align: center;
 }
 
 #logout {
