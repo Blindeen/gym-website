@@ -51,14 +51,14 @@ function table(mysqli $conn, array $columns, string $query, int $page, int $per_
     $pages_quantity = ceil($row[0] / $per_page);
     if ($page > 1) {
         $previous_page = $page - 1;
-        echo "<a href='{$_SERVER['PHP_SELF']}?page=$previous_page'> < </a>";
+        echo "<a id='left-arrow' href='{$_SERVER['PHP_SELF']}?page=$previous_page'></a>";
     }
     if ($pages_quantity != 0) {
-        echo $page;
+        echo "<div id='page-number'>$page</div>";
     }
     if ($page < $pages_quantity) {
         $next_page = $page + 1;
-        echo "<a href='{$_SERVER['PHP_SELF']}?page=$next_page'> > </a>";
+        echo "<a id='right-arrow' href='{$_SERVER['PHP_SELF']}?page=$next_page'></a>";
     }
 
     echo '    </div>

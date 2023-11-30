@@ -102,12 +102,49 @@ td {
 
 #pagination {
     display: flex;
+    align-items: center;
     gap: 10px;
-    width: fit-content;
 
     & a {
         text-decoration: none;
     }
+}
+
+#page-number {
+    --dimension: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--dimension);
+    height: var(--dimension);
+    border-radius: 50%;
+
+    background-color: #055CCF;
+
+    color: var(--white);
+}
+
+#left-arrow {
+    --size: 8px;
+
+    width: var(--size);
+    height: var(--size);
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+
+    transform: rotate(-45deg);
+}
+
+#right-arrow {
+    --size: 8px;
+
+    width: var(--size);
+    height: var(--size);
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+
+    transform: rotate(135deg);
 }
 
 #empty-row {
