@@ -1,9 +1,8 @@
 <?php
 function table(mysqli $conn, array $columns, string $query, int $page, int $per_page, string $pagination_query): void
 {
-    $lower_bound = ($page - 1) * $per_page;
-    $upper_bound = $page * $per_page;
-    $query = $query . " LIMIT $lower_bound, $upper_bound";
+    $offset = ($page - 1) * $per_page;
+    $data_query = $query . " LIMIT $per_page OFFSET $offset";
 
     echo '<div id="table-wrapper">
             <table>
@@ -19,7 +18,7 @@ function table(mysqli $conn, array $columns, string $query, int $page, int $per_
                 </thead>
                 <tbody>';
 
-    $result = $conn->query($query);
+    $result = $conn->query($data_query);
     if (!$result->num_rows) {
         $columns_quantity = count($columns);
         echo '<tr>';
