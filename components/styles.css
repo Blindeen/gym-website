@@ -62,6 +62,8 @@ header {
 
     background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #0084FF 42.37%, #055CCF 100%);
 
+    color: var(--white);
+
     & a {
         color: var(--white);
         text-decoration: none;
@@ -87,6 +89,10 @@ td, th {
 
 td {
     text-align: left;
+}
+
+#user-name {
+    font-weight: bold;
 }
 
 #table-wrapper {
