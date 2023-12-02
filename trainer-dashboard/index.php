@@ -1,10 +1,10 @@
 <?php
-require_once '../utils.php';
-require_once '../db-connection.php';
+require_once "../utils.php";
+require_once "../db-connection.php";
 
 $conn = db_connection();
 
-['TRAINER' => $trainer, 'INDEX_PAGE' => $index] = CONSTANTS;
+["TRAINER" => $trainer, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($trainer, $index);
 ?>
 <!DOCTYPE html>
@@ -18,35 +18,16 @@ private_route($trainer, $index);
     <title>FitSphere - Trainer dashboard</title>
 </head>
 <body>
-<?php require_once '../components/header/index.php'; ?>
+<?php require_once "../components/header/index.php"; ?>
 <main>
     <div id="dashboard">
         <div class="pane">
             <h2>My activities</h2>
-            <?php
-            require_once '../components/table/index.php';
-            $id = $_SESSION['id'];
-            $query = "SELECT Activities.ID, Name, DayOfWeek, TIME_FORMAT(StartTime, '%H:%i'), TIME_FORMAT(EndTime, '%H:%i'), RoomNumber FROM Activities
-                INNER JOIN gym.Rooms R on Activities.RoomID = R.ID
-                WHERE TrainerID = $id
-                ORDER BY
-                    CASE DayOfWeek
-                        WHEN 'Monday' THEN 1
-                        WHEN 'Tuesday' THEN 2
-                        WHEN 'Wednesday' THEN 3
-                        WHEN 'Thursday' THEN 4
-                        WHEN 'Friday' THEN 5
-                    END, StartTime";
-            $columns = ['Name', 'Weekday', 'Start time', 'End time', 'Room', 'Action'];
-            $page = (!isset($_GET['page']) ? 1 : intval($_GET['page']));
-            $per_page = 3;
-            $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$id";
-            table($conn, $columns, $query, $page, $per_page, $pagination_query);
-            ?>
+            <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
             <h2>Add new activity</h2>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
@@ -78,12 +59,12 @@ private_route($trainer, $index);
                         <select id="room" name="room">
                             <option selected hidden></option>
                             <?php
-                            $result = $conn->query('SELECT * FROM Rooms');
+                            $result = $conn->query("SELECT * FROM Rooms");
                             while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-                                ?>
+                            ?>
 
-                                <option value="<?php echo $row['ID']; ?>">
-                                    <?php echo $row['RoomNumber']; ?>
+                                <option value="<?php echo $row["ID"]; ?>">
+                                    <?php echo $row["RoomNumber"]; ?>
                                 </option>
 
                             <?php
