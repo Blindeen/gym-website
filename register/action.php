@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $result = perform_query($conn, 'SELECT ID FROM Members WHERE Email = ?', [$email], 's');
+        $result = perform_query($conn, 'SELECT ID, FirstName FROM Members WHERE Email = ?', [$email], 's');
         $member_data = $result->fetch_assoc();
     } catch (mysqli_sql_exception $exception) {
         error_log('Execution failed: ' . $exception->getMessage());
@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     session_start();
     $_SESSION['id'] = $member_data['ID'];
+    $_SESSION['first-name'] = $member_data['FirstName'];
     $_SESSION['role'] = CONSTANTS['CLIENT'];
 
     header('Location: ' . CONSTANTS['INDEX_PAGE']);

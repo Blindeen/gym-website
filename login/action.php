@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error = null;
 
     try {
-        $result = perform_query($conn, 'SELECT ID, Password, RoleID FROM Members WHERE Email = ?', [$email], 's');
+        $result = perform_query($conn, 'SELECT ID, FirstName, Password, RoleID FROM Members WHERE Email = ?', [$email], 's');
         $user_info = $result->fetch_assoc();
 
         if (isset($user_info)) {
@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $user_info['Password'])) {
             session_start();
             $_SESSION['id'] = $user_info['ID'];
+            $_SESSION['first-name'] = $user_info['FirstName'];
             $_SESSION['role'] = $role['Name'];
 
             header('Location: ' . CONSTANTS['INDEX_PAGE']);
