@@ -22,11 +22,10 @@ private_route($trainer, $index);
 <main>
     <div id="dashboard">
         <div class="pane">
-            <h2>My activities</h2>
+            <h2>My group activities</h2>
             <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
-            <h2>Add new activity</h2>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>

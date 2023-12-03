@@ -33,12 +33,14 @@ main {
     height: 100%;
 }
 
-h2 {
-    margin: 0 0 10px;
-}
-
 td, th {
     width: 6vw;
+}
+
+thead {
+    background-color: var(--blue);
+
+    color: var(--white);
 }
 
 #dashboard {
@@ -46,7 +48,7 @@ td, th {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 80vh;
+    height: 75vh;
     padding: 30px;
     border-radius: var(--radius);
 
@@ -54,7 +56,7 @@ td, th {
 }
 
 #form-wrapper {
-    width: 60%;
+    width: 40%;
 }
 
 .remove-button {
@@ -73,6 +75,12 @@ td, th {
 
 .pane {
     max-width: 100%;
+
+    & h2 {
+        margin: 0 0 10px;
+
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 426px) {
