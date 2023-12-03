@@ -1,8 +1,7 @@
 <?php
 require_once "../utils.php";
 require_once "../db-connection.php";
-
-$conn = db_connection();
+require_once "add-activity.php";
 
 ["TRAINER" => $trainer, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($trainer, $index);
@@ -30,16 +29,20 @@ private_route($trainer, $index);
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
+                    <?php if (isset($errors["activity-name"])) echo $errors["activity-name"] ?>
                 </div>
-                <div class="form-row">
-                    <div class="field">
-                        <label for="start-hour">Start hour</label>
-                        <input id="start-hour" name="start-hour" type="time" min="06:00" max="21:00" required/>
+                <div id="form-row-wrapper">
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="start-hour">Start hour</label>
+                            <input id="start-hour" name="start-hour" type="time" min="06:00" max="21:00" required/>
+                        </div>
+                        <div class="field">
+                            <label for="end-hour">End hour</label>
+                            <input id="end-hour" name="end-hour" type="time" min="06:00" max="21:00" required/>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label for="end-hour">End hour</label>
-                        <input id="end-hour" name="end-hour" type="time" min="06:00" max="21:00" required/>
-                    </div>
+                    <?php if (isset($errors["time"])) echo $errors["time"] ?>
                 </div>
                 <div class="form-row">
                     <div class="field">
@@ -52,6 +55,7 @@ private_route($trainer, $index);
                             <option value="Thursday">Thursday</option>
                             <option value="Friday">Friday</option>
                         </select>
+                        <?php if (isset($errors["weekday"])) echo $errors["weekday"] ?>
                     </div>
                     <div class="field">
                         <label for="room">Room</label>
@@ -70,6 +74,7 @@ private_route($trainer, $index);
                             endwhile;
                             ?>
                         </select>
+                        <?php if (isset($errors["room"])) echo $errors["room"]?>
                     </div>
                 </div>
                 <button type="submit">Add</button>

@@ -207,7 +207,12 @@ td {
 }
 
 .error {
+    margin: 0;
+
     color: var(--red);
+
+    font-size: 13px;
+    text-align: justify;
 }
 
 .action {

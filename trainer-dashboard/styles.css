@@ -14,8 +14,8 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 25px;
+    justify-content: space-between;
+    height: 100%;
 
     background-color: var(--white);
 }
@@ -48,15 +48,17 @@ thead {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 75vh;
-    padding: 30px;
+    height: 77vh;
+    padding: 20px 30px 20px 30px;
     border-radius: var(--radius);
 
     background-color: var(--white);
 }
 
 #form-wrapper {
-    width: 40%;
+    height: 35vh;
+
+    width: 45%;
 }
 
 .remove-button {
@@ -87,5 +89,9 @@ thead {
     #dashboard {
         width: 100%;
         padding: var(--radius) 0;
+    }
+
+    #form-wrapper {
+        width: 80%;
     }
 }
