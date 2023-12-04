@@ -23,6 +23,10 @@ if (isset($_SESSION["id"])) {
                         WHEN 'Thursday' THEN 4
                         WHEN 'Friday' THEN 5
                     END, StartTime";
+
+    if (!is_numeric($_GET["page"]) && !is_null($_GET["page"])) {
+        exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+    }
     $page = intval($_GET["page"] ?? 1);
     $per_page = 3;
     $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$id";
