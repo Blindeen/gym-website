@@ -43,7 +43,7 @@ if (isset($_SESSION["id"])) {
     $page = filter_var($_GET["page"], FILTER_VALIDATE_INT, $options);
 
     try {
-        table($conn, $columns, $action, $query, $page, $per_page, true, $pagination_query);
+        table($conn, $columns, $query, $page, $per_page, $action, true, $pagination_query);
     } catch (mysqli_sql_exception $exception) {
         error_log($exception->getMessage());
         exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);

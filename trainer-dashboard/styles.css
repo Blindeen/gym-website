@@ -11,15 +11,6 @@ body {
     font-family: var(--font);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-
-    background-color: var(--white);
-}
-
 label {
     &::before {
         content: '' !important;
@@ -41,6 +32,15 @@ thead {
     background-color: var(--blue);
 
     color: var(--white);
+}
+
+#add-activity-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    background-color: var(--white);
 }
 
 #dashboard {

@@ -25,7 +25,7 @@ private_route($trainer, $index);
             <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <form id="add-activity-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
@@ -81,6 +81,8 @@ private_route($trainer, $index);
             </form>
         </div>
     </div>
+    <?php require_once "../components/modal/index.php"; ?>
 </main>
+<script src="../components/modal/script.js"></script>
 </body>
 </html>
