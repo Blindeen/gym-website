@@ -2,10 +2,10 @@
 function table(
     mysqli $conn,
     array  $columns,
-    string $action,
     string $query,
     int    $page,
     int    $per_page,
+    string $action = null,
     bool   $pagination = false,
     string $pagination_query = null): void
 {
@@ -33,7 +33,13 @@ function table(
             $value = htmlspecialchars($row[$i]);
             echo "<td>$value</td>";
         }
-        echo "<td class='action'><a class='remove-button' href='$action$row[0]'>Delete</a></td></tr>";
+        if ($action) {
+            echo "
+                <td class='action'>
+                    <a data-id='$row[0]' class='edit-button'>Edit</a>
+                    <a class='remove-button' href='$action$row[0]'>Delete</a>
+                </td></tr>";
+        }
     endwhile;
 
     echo "</tbody></table></div>";
