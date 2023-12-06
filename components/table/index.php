@@ -1,12 +1,12 @@
 <?php
 function table(
     mysqli $conn,
-    array $columns,
+    array  $columns,
     string $action,
     string $query,
-    int $page,
-    int $per_page,
-    bool $pagination = false,
+    int    $page,
+    int    $per_page,
+    bool   $pagination = false,
     string $pagination_query = null): void
 {
     $offset = ($page - 1) * $per_page;
@@ -47,8 +47,7 @@ function table(
         if ($page > 1 && $data_per_page->num_rows) {
             $previous_page = $page - 1;
             echo "<a id='left-arrow' href='{$_SERVER['PHP_SELF']}?page=$previous_page'></a>";
-        }
-        else {
+        } else {
             echo "<div id='left-arrow' style='border-color: grey'></div>";
         }
 
@@ -59,8 +58,7 @@ function table(
         if ($page < $pages_quantity) {
             $next_page = $page + 1;
             echo "<a id='right-arrow' href='{$_SERVER['PHP_SELF']}?page=$next_page'></a>";
-        }
-        else {
+        } else {
             echo "<div id='right-arrow' style='border-color: grey'></div>";
         }
 

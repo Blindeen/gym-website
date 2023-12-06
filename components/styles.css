@@ -103,8 +103,12 @@ td {
 }
 
 #pagination-wrapper {
+    position: absolute;
+    bottom: 0;
+
     display: flex;
     justify-content: center;
+    width: 100%;
     margin-top: 10px;
 }
 
