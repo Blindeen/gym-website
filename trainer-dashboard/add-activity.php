@@ -1,6 +1,7 @@
 <?php
 require_once "../utils.php";
 require_once "../db-connection.php";
+require_once "../constants.php";
 
 session_start();
 $conn = db_connection();
@@ -29,12 +30,6 @@ function correct_room(string $value): string|null
     return in_array($value, $identifiers) ? $value : null;
 }
 
-$errors = array(
-    "activity-name" => null,
-    "time" => null,
-    "weekday" => null,
-    "room" => null,
-);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = array(
         "activity-name" => array(
@@ -66,12 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $serialized_data["end-hour"],
             $serialized_data["weekday"],
             $serialized_data["room"],
-            $_SESSION["id"]
+            $_SESSION["id"],
         );
-        try {
-            perform_query($conn, $query, $params, "ssssss");
-        } catch (mysqli_sql_exception $exception) {
 
+        try {
+            perform_query($conn, $query, prepare_data($params), "ssssss");
+        } catch (mysqli_sql_exception $exception) {
+            exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
         }
     } else {
         if (!$serialized_data["activity-name"]) {
