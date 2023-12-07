@@ -36,8 +36,8 @@ function table(
         if ($action) {
             echo "
                 <td class='action'>
-                    <a data-id='$row[0]' class='edit-button'>Edit</a>
-                    <a class='remove-button' href='$action$row[0]'>Delete</a>
+                    <a class='button edit-button' data-id='$row[0]'>Edit</a>
+                    <a class='button remove-button' href='$action$row[0]'>Delete</a>
                 </td></tr>";
         }
     endwhile;

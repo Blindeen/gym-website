@@ -20,7 +20,7 @@ private_route($trainer, $index);
 <?php require_once "../components/header/index.php"; ?>
 <main>
     <div id="dashboard">
-        <div class="pane">
+        <div id="table-pane">
             <h2>My group activities</h2>
             <?php require_once "trainer-table.php"; ?>
         </div>
@@ -31,7 +31,7 @@ private_route($trainer, $index);
                     <input id="activity-name" name="activity-name" type="text" required/>
                     <?php if (isset($errors["activity-name"])) echo $errors["activity-name"] ?>
                 </div>
-                <div id="form-row-wrapper">
+                <div class="form-row-wrapper">
                     <div class="form-row">
                         <div class="field">
                             <label for="start-hour">Start hour</label>
@@ -81,8 +81,9 @@ private_route($trainer, $index);
             </form>
         </div>
     </div>
-    <?php require_once "../components/modal/index.php"; ?>
+    <?php require_once "edit-activity-modal.php"; ?>
 </main>
 <script src="../components/modal/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
