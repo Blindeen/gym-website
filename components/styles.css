@@ -109,7 +109,6 @@ td {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 10px;
 }
 
 #pagination {
@@ -186,7 +185,7 @@ td {
     height: 100vh;
     z-index: 1000;
 
-    background-color: rgba(0, 0, 0, 0.61);
+    background: rgba(0, 0, 0, 0.2);
 
     backdrop-filter: blur(5px);
 }
@@ -209,6 +208,28 @@ td {
     display: flex;
     flex-direction: column;
     gap: 3vh;
+}
+
+.button {
+    width: 100%;
+    border-radius: var(--radius);
+    border: none;
+    padding: 8px;
+
+    font-family: var(--font);
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.remove-button {
+    background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #FE6D6D 42.37%, #FF1D1D 100%);
+}
+
+.edit-button {
+    background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #0084FF 42.37%, #055CCF 100%);
+
+    cursor: pointer;
 }
 
 .field {
@@ -282,4 +303,36 @@ td {
     font-weight: bold;
 
     box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
+    cursor: pointer;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #modal-form-wrapper {
+        width: 70vw;
+    }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #modal-form-wrapper {
+        width: 40vw;
+    }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #modal-form-wrapper {
+        width: 35vw;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #modal-form-wrapper {
+        width: 30vw;
+    }
+}
+/* Extra large devices (large laptops and desktops, 1200px and down) */
+@media only screen and (min-width: 1200px) {
+    #modal-form-wrapper {
+        width: 20vw;
+    }
 }
