@@ -1,41 +1,52 @@
 <?php
-require_once '../db-connection.php';
-require_once '../utils.php';
+require_once "../db-connection.php";
+require_once "../utils.php";
 
+session_start();
 $conn = db_connection();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+["SERVER_ERROR_MESSAGE" => $error_message, "INDEX_PAGE" => $index] = CONSTANTS;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $serializer = array(
+        "email" => array(
+            "filter" => FILTER_VALIDATE_EMAIL,
+        ),
+        "password" => FILTER_FLAG_NONE,
+    );
 
-    $user_info = null;
-    $role = null;
-    $error = null;
-
-    try {
-        $result = perform_query($conn, 'SELECT ID, FirstName, Password, RoleID FROM Members WHERE Email = ?', [$email], 's');
-        $user_info = $result->fetch_assoc();
-
-        if (isset($user_info)) {
-            $result = perform_query($conn, 'SELECT Name FROM Roles WHERE ID = ?', [$user_info['RoleID']], 's');
-            $role = $result->fetch_assoc();
-        }
-    } catch (mysqli_sql_exception $exception) {
-        exit(CONSTANTS['SERVER_ERROR_MESSAGE']);
-    }
-
-    if (isset($user_info) and isset($role)) {
-        if (password_verify($password, $user_info['Password'])) {
-            session_start();
-            $_SESSION['id'] = $user_info['ID'];
-            $_SESSION['first-name'] = $user_info['FirstName'];
-            $_SESSION['role'] = $role['Name'];
-
-            header('Location: ' . CONSTANTS['INDEX_PAGE']);
-        } else {
-            $error = '<p class="error">Incorrect password</p>';
-        }
+    $serialized_data = filter_var_array($_POST, $serializer);
+    if (in_array(null, $serialized_data)) {
+        $errors["email"] = "<p class='error'>Email is invalid</p>";
     } else {
-        $error = '<p class="error">User not found</p>';
+        $email = trim($serialized_data["email"]);
+        $password = trim($serialized_data["password"]);
+
+        try {
+            $query = "SELECT ID, FirstName, Password, RoleID FROM Members WHERE Email = ?";
+            $user_result = perform_query($conn, $query, [$email], "s");
+            $user_info = $user_result->fetch_assoc();
+
+            if ($user_result->num_rows) {
+                $query = "SELECT Name FROM Roles WHERE ID = ?";
+                $role_result = perform_query($conn, $query, [$user_info["RoleID"]], "s");
+                $role = $role_result->fetch_assoc();
+            }
+        } catch (mysqli_sql_exception $exception) {
+            exit($error_message);
+        }
+
+        if ($user_result->num_rows) {
+            if (password_verify($password, $user_info["Password"])) {
+                $_SESSION["id"] = $user_info["ID"];
+                $_SESSION["first-name"] = $user_info["FirstName"];
+                $_SESSION["role"] = $role["Name"];
+
+                header("Location: " . $index);
+            } else {
+                $errors["password"] = "<p class='error'>Incorrect password</p>";
+            }
+        } else {
+            $errors["email"] = "<p class='error'>User not found</p>";
+        }
     }
 }
