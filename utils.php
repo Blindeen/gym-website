@@ -23,3 +23,13 @@ function private_route(string|null $expected_account_type, string $redirect_path
     $authorization = ($expected_account_type == $role);
     if (!$authorization) header('Location: ' . $redirect_path);
 }
+
+function prepare_data(array $data): array
+{
+    $result = [];
+    foreach ($data as $el) {
+        $result[] = htmlspecialchars(trim($el));
+    }
+
+    return $result;
+}
