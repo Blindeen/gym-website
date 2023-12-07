@@ -13,4 +13,5 @@ const CONSTANTS = [
     'GUEST' => null,
     'CLIENT' => 'Client',
     'TRAINER' => 'Trainer',
+    'PER_PAGE' => 3,
 ];

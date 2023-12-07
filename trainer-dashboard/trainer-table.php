@@ -2,6 +2,8 @@
 require_once "../components/table/index.php";
 require_once "../constants.php";
 
+["SERVER_ERROR_MESSAGE" => $error, "PER_PAGE" => $per_page] = CONSTANTS;
+
 if (isset($_SESSION["id"])) {
     $id = $_SESSION["id"];
     $columns = ["Name", "Weekday", "Start time", "End time", "Room", "Action"];
@@ -24,28 +26,27 @@ if (isset($_SESSION["id"])) {
                         WHEN 'Friday' THEN 5
                     END, StartTime";
 
-    $per_page = 3;
     $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$id";
     try {
         $rows_quantity = $conn->query($pagination_query)->fetch_row()[0];
     } catch (mysqli_sql_exception $exception) {
         error_log($exception->getMessage());
-        exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+        exit($error);
     }
-    $max_range = ceil($rows_quantity / $per_page);
+
     $options = array(
         "options" => array(
             "default" => 1,
             "min_range" => 0,
-            "max_range" => $max_range,
+            "max_range" => ceil($rows_quantity / $per_page),
         )
     );
-    $page = filter_var($_GET["page"], FILTER_VALIDATE_INT, $options);
+    $page = filter_var($_GET["page"] ?? null, FILTER_VALIDATE_INT, $options);
 
     try {
         table($conn, $columns, $query, $page, $per_page, $action, true, $pagination_query);
     } catch (mysqli_sql_exception $exception) {
         error_log($exception->getMessage());
-        exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+        exit($error);
     }
 }
