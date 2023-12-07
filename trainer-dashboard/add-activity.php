@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "options" => "correct_room",
         ),
     );
-
     $serialized_data = filter_var_array($_POST, $serializer);
 
     $start = date_create($serialized_data["start-hour"])->getTimestamp();

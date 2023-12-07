@@ -4,8 +4,8 @@ require_once "../constants.php";
 
 ["SERVER_ERROR_MESSAGE" => $error, "PER_PAGE" => $per_page] = CONSTANTS;
 
-if (isset($_SESSION["id"])) {
-    $id = $_SESSION["id"];
+$validated_id = filter_var($_SESSION["id"] ?? null, FILTER_VALIDATE_INT);
+if ($validated_id) {
     $columns = ["Name", "Weekday", "Start time", "End time", "Room", "Action"];
     $action = "delete-activity.php?id=";
     $query = "SELECT
@@ -16,7 +16,7 @@ if (isset($_SESSION["id"])) {
             TIME_FORMAT(EndTime, '%H:%i'),
             RoomNumber FROM Activities
                 INNER JOIN gym.Rooms R on Activities.RoomID = R.ID
-                WHERE TrainerID = $id
+                WHERE TrainerID = $validated_id
                 ORDER BY
                     CASE DayOfWeek
                         WHEN 'Monday' THEN 1
@@ -26,7 +26,7 @@ if (isset($_SESSION["id"])) {
                         WHEN 'Friday' THEN 5
                     END, StartTime";
 
-    $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$id";
+    $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$validated_id";
     try {
         $rows_quantity = $conn->query($pagination_query)->fetch_row()[0];
     } catch (mysqli_sql_exception $exception) {
