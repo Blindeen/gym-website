@@ -12,9 +12,10 @@ const modifyUrl = (queryString) => {
 };
 
 const configForm = (editButton) => {
-    const page = new URLSearchParams(location.search).get('page') ?? '1';
+    const urlSearchParams = new URLSearchParams(location.search);
+    const page = urlSearchParams.get('page') ?? '1';
     const ID = editButton.getAttribute(constants.dataAttribute)
-    modifyUrl({name: 'modal', value: ID});
+    !urlSearchParams.get('modal') && modifyUrl({name: 'modal', value: ID})
 
     editModal.style.display = constants.displayFlex;
     modalForm.action = constants.actionFilePath + ID + '&page=' + page;
