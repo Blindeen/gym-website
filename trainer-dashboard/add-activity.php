@@ -6,30 +6,6 @@ require_once "../constants.php";
 session_start();
 $conn = db_connection();
 
-function correct_weekday(string $value): string|null
-{
-    return in_array($value, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]) ? $value : null;
-}
-
-function correct_room(string $value): string|null
-{
-    if (!is_numeric($value)) {
-        return null;
-    }
-
-    $conn = db_connection();
-    $result = $conn->query("SELECT ID FROM Rooms");
-
-    $identifiers = [];
-    while ($row = $result->fetch_row()):
-        $identifiers[] = $row[0];
-    endwhile;
-
-    $conn->close();
-
-    return in_array($value, $identifiers) ? $value : null;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = array(
         "activity-name" => array(
