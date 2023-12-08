@@ -1,6 +1,7 @@
 <?php
 require_once "../utils.php";
 require_once "../db-connection.php";
+require_once "../components/header/index.php";
 require_once "add-activity.php";
 
 ["TRAINER" => $trainer, "INDEX_PAGE" => $index] = CONSTANTS;
@@ -17,7 +18,7 @@ private_route($trainer, $index);
     <title>FitSphere - Trainer dashboard</title>
 </head>
 <body>
-<?php require_once "../components/header/index.php"; ?>
+<?php navbar(); ?>
 <main>
     <div id="dashboard">
         <div id="table-pane">
