@@ -7,6 +7,11 @@ session_start();
 $conn = db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $validated_id = filter_var($_SESSION["id"] ?? null, FILTER_VALIDATE_INT);
+    if (!$validated_id) {
+        exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+    }
+
     $serializer = [
         "activity-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,

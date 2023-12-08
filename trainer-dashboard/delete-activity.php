@@ -12,7 +12,6 @@ $data = [
     "trainer-id" => $_SESSION["id"] ?? null,
 ];
 $validated_data = filter_var_array($data, FILTER_VALIDATE_INT);
-
 if (in_array(null, $validated_data)) {
     exit($error);
 }

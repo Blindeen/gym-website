@@ -5,10 +5,13 @@ require_once "../constants.php";
 ["SERVER_ERROR_MESSAGE" => $error, "PER_PAGE" => $per_page] = CONSTANTS;
 
 $validated_id = filter_var($_SESSION["id"] ?? null, FILTER_VALIDATE_INT);
-if ($validated_id) {
-    $columns = ["Name", "Weekday", "Start time", "End time", "Room", "Action"];
-    $action = "delete-activity.php?id=";
-    $query = "SELECT
+if (!$validated_id) {
+    exit($error);
+}
+
+$columns = ["Name", "Weekday", "Start time", "End time", "Room", "Action"];
+$action = "delete-activity.php?id=";
+$query = "SELECT
             Activities.ID,
             Name,
             DayOfWeek,
@@ -26,27 +29,26 @@ if ($validated_id) {
                         WHEN 'Friday' THEN 5
                     END, StartTime";
 
-    $pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$validated_id";
-    try {
-        $rows_quantity = $conn->query($pagination_query)->fetch_row()[0];
-    } catch (mysqli_sql_exception $exception) {
-        error_log($exception->getMessage());
-        exit($error);
-    }
+$pagination_query = "SELECT COUNT(*) FROM Activities WHERE TrainerID=$validated_id";
+try {
+    $rows_quantity = $conn->query($pagination_query)->fetch_row()[0];
+} catch (mysqli_sql_exception $exception) {
+    error_log($exception->getMessage());
+    exit($error);
+}
 
-    $options = [
-        "options" => [
-            "default" => 1,
-            "min_range" => 0,
-            "max_range" => ceil($rows_quantity / $per_page),
-        ],
-    ];
-    $page = filter_var($_GET["page"] ?? null, FILTER_VALIDATE_INT, $options);
+$options = [
+    "options" => [
+        "default" => 1,
+        "min_range" => 0,
+        "max_range" => ceil($rows_quantity / $per_page),
+    ],
+];
+$page = filter_var($_GET["page"] ?? null, FILTER_VALIDATE_INT, $options);
 
-    try {
-        table($conn, $columns, $query, $page, $per_page, $action, true, $pagination_query);
-    } catch (mysqli_sql_exception $exception) {
-        error_log($exception->getMessage());
-        exit($error);
-    }
+try {
+    table($conn, $columns, $query, $page, $per_page, $action, true, $pagination_query);
+} catch (mysqli_sql_exception $exception) {
+    error_log($exception->getMessage());
+    exit($error);
 }
