@@ -2,8 +2,10 @@ const editButtons = document.querySelectorAll('.edit-button');
 const modalForm = editModal.querySelector('#modal-form');
 
 const configForm = (editButton) => {
+    const page = new URLSearchParams(window.location.search).get('page') ?? '1';
+
     editModal.style.display = constants.displayFlex;
-    modalForm.action = constants.actionFilePath + editButton.getAttribute(constants.dataAttribute);
+    modalForm.action = constants.actionFilePath + editButton.getAttribute(constants.dataAttribute) + '&page=' + page;
 };
 
 const retrieveData = (editButton) => {
