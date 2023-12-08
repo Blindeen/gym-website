@@ -1,11 +1,23 @@
 const editButtons = document.querySelectorAll('.edit-button');
 const modalForm = editModal.querySelector('#modal-form');
 
+const modifyUrl = (queryString) => {
+    const {name, value} = queryString;
+    if (value) {
+        const url = new URL(location.href);
+        const params = url.searchParams;
+        params.append(name, value);
+        history.pushState({}, '', url);
+    }
+};
+
 const configForm = (editButton) => {
-    const page = new URLSearchParams(window.location.search).get('page') ?? '1';
+    const page = new URLSearchParams(location.search).get('page') ?? '1';
+    const ID = editButton.getAttribute(constants.dataAttribute)
+    modifyUrl({name: 'modal', value: ID});
 
     editModal.style.display = constants.displayFlex;
-    modalForm.action = constants.actionFilePath + editButton.getAttribute(constants.dataAttribute) + '&page=' + page;
+    modalForm.action = constants.actionFilePath + ID + '&page=' + page;
 };
 
 const retrieveData = (editButton) => {
@@ -34,7 +46,18 @@ const setFormValues = (formFields, dataRow) => {
     })
 };
 
-editButtons.forEach((editButton) => editButton.addEventListener('click', () => {
+addEventListener('DOMContentLoaded', () => {
+    const modalID = new URLSearchParams(location.search).get('modal');
+    if (modalID) {
+        const editButton = Array.from(editButtons).find(
+            value => value.getAttribute(constants.dataAttribute) === modalID
+        );
+
+        editButton && editButton.click();
+    }
+});
+
+editButtons.forEach(editButton => editButton.addEventListener('click', () => {
     configForm(editButton);
     const {formFields, dataRow} = retrieveData(editButton);
     setFormValues(formFields, dataRow);
