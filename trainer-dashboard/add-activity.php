@@ -7,37 +7,30 @@ session_start();
 $conn = db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $serializer = array(
-        "activity-name" => array(
+    $serializer = [
+        "activity-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => array("regexp" => "/[A-Z][a-zA-Z]+/"),
-        ),
+            "options" => ["regexp" => "/[A-Z][a-zA-Z]+/"],
+        ],
         "start-hour" => FILTER_FLAG_NONE,
         "end-hour" => FILTER_FLAG_NONE,
-        "weekday" => array(
+        "weekday" => [
             "filter" => FILTER_CALLBACK,
             "options" => "correct_weekday",
-        ),
-        "room" => array(
+        ],
+        "room" => [
             "filter" => FILTER_CALLBACK,
             "options" => "correct_room",
-        ),
-    );
-    $serialized_data = filter_var_array($_POST, $serializer);
+        ],
+    ];
+    $query_data = filter_var_array($_POST, $serializer);
 
-    $start = date_create($serialized_data["start-hour"])->getTimestamp();
-    $end = date_create($serialized_data["end-hour"])->getTimestamp();
+    $start = date_create($query_data["start-hour"])->getTimestamp();
+    $end = date_create($query_data["end-hour"])->getTimestamp();
 
-    if (!in_array(null, $serialized_data) && ($end - $start) > 0) {
+    if (!in_array(null, $query_data) && ($end - $start) > 0) {
         $query = "INSERT INTO Activities (Name, StartTime, EndTime, DayOfWeek, RoomID, TrainerID) VALUES (?, ?, ?, ?, ?, ?)";
-        $params = array(
-            $serialized_data["activity-name"],
-            $serialized_data["start-hour"],
-            $serialized_data["end-hour"],
-            $serialized_data["weekday"],
-            $serialized_data["room"],
-            $_SESSION["id"],
-        );
+        $params = array_values([...$query_data, $_SESSION["id"]]);
 
         try {
             perform_query($conn, $query, prepare_data($params), "ssssss");
@@ -45,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
         }
     } else {
-        if (!$serialized_data["activity-name"]) {
+        if (!$query_data["activity-name"]) {
             $errors["activity-name"] = "<p class='error'>Minimum 2 letters and first capitalized</p>";
         }
 
@@ -53,11 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors["time"] = "<p class='error'>End time has to be greater than start time</p>";
         }
 
-        if (!$serialized_data["weekday"]) {
+        if (!$query_data["weekday"]) {
             $errors["weekday"] = "<p class='error'>Incorrect weekday</p>";
         }
 
-        if (!$serialized_data["room"]) {
+        if (!$query_data["room"]) {
             $errors["room"] = "<p class='error'>Incorrect room number</p>";
         }
     }

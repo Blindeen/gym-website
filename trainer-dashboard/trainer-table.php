@@ -34,13 +34,13 @@ if ($validated_id) {
         exit($error);
     }
 
-    $options = array(
-        "options" => array(
+    $options = [
+        "options" => [
             "default" => 1,
             "min_range" => 0,
             "max_range" => ceil($rows_quantity / $per_page),
-        )
-    );
+        ],
+    ];
     $page = filter_var($_GET["page"] ?? null, FILTER_VALIDATE_INT, $options);
 
     try {
