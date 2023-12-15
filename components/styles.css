@@ -150,12 +150,12 @@ td {
 
 #right-arrow {
     --size: 8px;
-    --border_thickness: 2px;
+    --border-thickness: 2px;
 
     width: var(--size);
     height: var(--size);
-    border-left: var(--border_thickness) solid var(--black);
-    border-top: var(--border_thickness) solid var(--black);
+    border-left: var(--border-thickness) solid var(--black);
+    border-top: var(--border-thickness) solid var(--black);
 
     transform: rotate(135deg);
 }
@@ -188,26 +188,6 @@ td {
     background: rgba(0, 0, 0, 0.2);
 
     backdrop-filter: blur(5px);
-}
-
-#modal-form-wrapper {
-    position: relative;
-
-    width: 15vw;
-    border-radius: var(--radius);
-    padding: 20px 30px 20px 30px;
-
-    background-color: var(--white);
-
-    & h2 {
-        text-align: center;
-    }
-}
-
-#modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 3vh;
 }
 
 .button {
@@ -304,35 +284,4 @@ td {
 
     box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
     cursor: pointer;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-    #modal-form-wrapper {
-        width: 70vw;
-    }
-}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    #modal-form-wrapper {
-        width: 40vw;
-    }
-}
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    #modal-form-wrapper {
-        width: 35vw;
-    }
-}
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    #modal-form-wrapper {
-        width: 30vw;
-    }
-}
-/* Extra large devices (large laptops and desktops, 1200px and down) */
-@media only screen and (min-width: 1200px) {
-    #modal-form-wrapper {
-        width: 20vw;
-    }
 }
