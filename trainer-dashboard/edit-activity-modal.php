@@ -2,11 +2,16 @@
 require_once "../constants.php";
 require_once "../components/modal/index.php";
 
+if (isset($_SESSION["errors"])) {
+    ["activity-name" => $activity_name, "time" => $time, "weekday" => $weekday, "room" => $room] = $_SESSION["errors"];
+}
+
 $modal_content = "
             <form id='modal-form' method='POST'>
                 <div class='field'>
                     <label for='activity-name'>Activity name</label>
                     <input id='activity-name' name='activity-name' type='text' required/>
+                    $activity_name
                 </div>
                 <div class='form-row-wrapper'>
                     <div class='form-row'>
@@ -19,6 +24,7 @@ $modal_content = "
                             <input id='end-hour' name='end-hour' type='time' min='06:00' max='21:00' required/>
                         </div>
                     </div>
+                    $time
                 </div>
                 <div class='form-row'>
                     <div class='field'>
@@ -31,6 +37,7 @@ $modal_content = "
                             <option value='Thursday'>Thursday</option>
                             <option value='Friday'>Friday</option>
                         </select>
+                        $weekday
                     </div>
                     <div class='field'>
                         <label for='room'>Room</label>
@@ -50,6 +57,6 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)):
     $modal_content .= "<option value='$id'>$room_number</option>";
 endwhile;
 
-$modal_content .= "</select></div></div><button type='submit'>Edit</button></form>";
+$modal_content .= "</select>$room</div></div><button type='submit'>Edit</button></form>";
 
 modal("Edit activity", $modal_content);

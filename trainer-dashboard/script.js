@@ -1,6 +1,26 @@
 const editButtons = document.querySelectorAll('.edit-button');
 const modalForm = editModal.querySelector('#modal-form');
 
+const setLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+const prepareCurrentFormData = (formFields) => {
+    const currentFormData = Object.entries({
+        name: '',
+        startHour: '',
+        endHour: '',
+        weekday: '',
+        room: '',
+    });
+
+    currentFormData.forEach(
+        (_, idx, array) => array[idx][1] = formFields[idx].value
+    );
+
+    return Object.fromEntries(currentFormData);
+};
+
 const modifyUrl = (queryString) => {
     const {name, value} = queryString;
     if (value) {
@@ -62,4 +82,8 @@ editButtons.forEach(editButton => editButton.addEventListener('click', () => {
     configForm(editButton);
     const {formFields, dataRow} = retrieveData(editButton);
     setFormValues(formFields, dataRow);
+
+    const currentFormData = prepareCurrentFormData(formFields);
+
+    setLocalStorage('currentFormValues', currentFormData);
 }));
