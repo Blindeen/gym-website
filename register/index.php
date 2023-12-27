@@ -1,6 +1,6 @@
 <?php
-require_once 'src/utils.php';
-require_once 'src/actions/register-action.php';
+require_once '../utils.php';
+require_once 'action.php';
 
 ['GUEST' => $guest, 'INDEX_PAGE' => $index] = CONSTANTS;
 private_route($guest, $index);
@@ -10,9 +10,9 @@ private_route($guest, $index);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/register/styles.css">
-    <link rel="stylesheet" href="assets/css/components/styles.css">
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../components/styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
     <title>FitSphere - Register</title>
 </head>
 <body>
@@ -103,9 +103,9 @@ private_route($guest, $index);
     <div id="submit">
         <button type="submit">Sign up</button>
         <?php if (isset($error)) echo $error; ?>
-        <p>Have an account? <a href="login.php">Sign in</a></p>
+        <p>Have an account? <a href="../login/index.php">Sign in</a></p>
     </div>
 </form>
 </body>
-<script src="assets/js/register.js"></script>
+<script src="scripts.js"></script>
 </html>
