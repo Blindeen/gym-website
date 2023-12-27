@@ -1,10 +1,6 @@
 const editButtons = document.querySelectorAll('.edit-button');
 const modalForm = editModal.querySelector('#modal-form');
 
-const setLocalStorage = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-};
-
 const modifyUrl = (queryString) => {
     const {name, value} = queryString;
     if (value) {
@@ -68,6 +64,7 @@ addEventListener('DOMContentLoaded', () => {
             if (e.target !== editModal) return;
         }
         Array.from(modalForm.querySelectorAll('.error')).forEach(el => el.remove());
+        document.cookie = "errors=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     })
 });
 

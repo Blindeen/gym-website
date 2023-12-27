@@ -42,7 +42,7 @@ $start = date_create($query_data["start-hour"])->getTimestamp();
 $end = date_create($query_data["end-hour"])->getTimestamp();
 
 if (!in_array(null, $query_data) && ($end - $start) > 0) {
-    $_SESSION["errors"] = [];
+    $errors = [];
 
     $query = "UPDATE Activities SET Name=?, DayOfWeek=?, StartTime=?, EndTime=?, RoomID=? WHERE ID=? AND TrainerID=?";
     try {
@@ -68,7 +68,7 @@ if (!in_array(null, $query_data) && ($end - $start) > 0) {
         $errors["room"] = "<p class='error'>Incorrect room number</p>";
     }
 
-    $_SESSION["errors"] = $errors;
+    setcookie("errors", json_encode($errors));
 }
 
 $redirect_path = "Location: " . $trainer_dashboard . "?page=$page";

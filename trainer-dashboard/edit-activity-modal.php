@@ -2,8 +2,15 @@
 require_once "../constants.php";
 require_once "../components/modal/index.php";
 
-if (isset($_SESSION["errors"])) {
-    ["activity-name" => $activity_name, "time" => $time, "weekday" => $weekday, "room" => $room] = $_SESSION["errors"];
+if (isset($_COOKIE["errors"])) {
+    $serializer = [
+        "activity-name" => FILTER_FLAG_NONE,
+        "time" => FILTER_FLAG_NONE,
+        "weekday" => FILTER_FLAG_NONE,
+        "room" => FILTER_FLAG_NONE,
+    ];
+    $serialized_errors = filter_var_array(json_decode($_COOKIE["errors"], true), $serializer);
+    ["activity-name" => $activity_name, "time" => $time, "weekday" => $weekday, "room" => $room] = $serialized_errors;
 }
 
 $modal_content = "
