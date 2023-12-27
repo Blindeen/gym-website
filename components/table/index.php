@@ -34,12 +34,9 @@ function table(
             echo "<td>$value</td>";
         }
         if ($action) {
-            echo "
-                <td class='action'>
-                    <a class='button edit-button' data-id='$row[0]'>Edit</a>
-                    <a class='button remove-button' href='$action$row[0]'>Delete</a>
-                </td></tr>";
+            echo $action;
         }
+        echo "</tr>";
     endwhile;
 
     echo "</tbody></table></div>";
