@@ -8,6 +8,13 @@
     --steam: #DDDDDD;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 input {
     box-sizing: border-box;
     border: 2px solid var(--blue);

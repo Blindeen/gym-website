@@ -17,13 +17,6 @@ label {
     }
 }
 
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
 #dashboard {
     display: flex;
     flex-direction: column;
