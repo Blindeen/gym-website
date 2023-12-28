@@ -24,16 +24,6 @@ main {
     height: 100%;
 }
 
-td, th {
-    min-width: 90px;
-}
-
-thead {
-    background-color: var(--blue);
-
-    color: var(--white);
-}
-
 #dashboard {
     display: flex;
     flex-direction: column;

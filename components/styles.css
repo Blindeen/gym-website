@@ -75,11 +75,18 @@ table {
     width: 100%;
 }
 
+thead {
+    background-color: var(--blue);
+
+    color: var(--white);
+}
+
 tr {
     height: 50px;
 }
 
 td, th {
+    min-width: 90px;
     border: 1px solid var(--steam);
     padding: 8px;
 
