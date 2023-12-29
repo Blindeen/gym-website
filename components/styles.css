@@ -62,20 +62,6 @@ select {
     }
 }
 
-header {
-    display: flex;
-    justify-content: flex-end;
-    width: 100vw;
-    height: 8vh;
-
-    color: var(--white);
-
-    & a {
-        color: var(--white);
-        text-decoration: none;
-    }
-}
-
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -102,6 +88,20 @@ td, th {
 
 td {
     text-align: left;
+}
+
+#navbar-header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 8vh;
+
+    color: var(--white);
+
+    & a {
+        color: var(--white);
+        text-decoration: none;
+    }
 }
 
 #user-name {
@@ -298,4 +298,30 @@ td {
 
     box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
     cursor: pointer;
+}
+
+.badge-wrapper {
+    position: relative;
+
+    & :first-child {
+        position: static;
+    }
+}
+
+.badge {
+    position: absolute;
+    right: -13px;
+    top: -13px;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    color: var(--white);
+    background-color: var(--red);
+
+    font-size: 13px;
 }
