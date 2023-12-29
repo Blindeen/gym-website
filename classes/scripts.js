@@ -1,7 +1,7 @@
 const likeButtons = document.querySelectorAll('button');
 
+let favoriteActivities = JSON.parse(sessionStorage.getItem('favoriteActivities')) ?? [];
 Array.from(likeButtons).forEach(btn => {
-    let favoriteActivities = JSON.parse(sessionStorage.getItem('favoriteActivities')) ?? [];
     const activityID = btn.getAttribute('data-id');
     const isAdded = favoriteActivities.some(obj => obj.id === activityID);
     if (isAdded) {

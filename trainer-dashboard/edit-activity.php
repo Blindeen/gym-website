@@ -23,7 +23,7 @@ if (in_array(null, $validated_data)) {
 $serializer = [
     "activity-name" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => array("regexp" => "/[A-Z][a-zA-Z]+/"),
+        "options" => array("regexp" => "/[A-Z]+[a-zA-Z]+/"),
     ],
     "weekday" => [
         "filter" => FILTER_CALLBACK,
@@ -72,7 +72,7 @@ if (!in_array(null, $query_data) && ($end - $start) > 0) {
 }
 
 $redirect_path = "Location: " . $trainer_dashboard . "?page=$page";
-if (count($_SESSION["errors"])) {
+if (count($errors)) {
     $redirect_path .= "&modal=$activity_id";
 }
 header($redirect_path);

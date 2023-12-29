@@ -15,7 +15,7 @@ session_start();
 <body>
 <div class="mobile-menu">
     <a href="/">Home</a>
-    <a href="#">Classes</a>
+    <a href="/classes/index.php">Classes</a>
     <a href="#">Trainers</a>
     <a href="#">Contact</a>
     <?php
@@ -40,7 +40,7 @@ session_start();
     <header>
         <img src="assets/img/logo.png" alt="logo"/>
         <a class="link" href="/">Home</a>
-        <a class="link" href="#">Classes</a>
+        <a class="link" href="/classes/index.php">Classes</a>
         <a class="link" href="#">Trainers</a>
         <a class="link" href="#">Contact</a>
         <?php
