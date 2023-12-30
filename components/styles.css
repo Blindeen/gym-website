@@ -325,3 +325,15 @@ td {
 
     font-size: 13px;
 }
+
+.form-success {
+    color: lightgreen;
+}
+
+.form-error {
+    color: var(--red);
+}
+
+.input-error {
+    border-color: var(--red);
+}

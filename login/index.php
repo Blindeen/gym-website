@@ -1,7 +1,6 @@
 <?php
 require_once "../utils.php";
 require_once "../constants.php";
-require_once "action.php";
 
 ["GUEST" => $guest, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($guest, $index);
@@ -17,28 +16,23 @@ private_route($guest, $index);
     <title>FitSphere - Login</title>
 </head>
 <body>
-<form class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+<form class="form-container" action="login.php" method="POST">
     <h2>Sign in</h2>
     <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" required/>
+        <input id="email" name="email" type="email"/>
     </div>
     <div class="field">
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" required/>
+        <input id="password" name="password" type="password"/>
     </div>
     <div id="submit">
         <button type="submit">Sign in</button>
         <p>Don't have an account? <a href="../register/index.php">Sign up</a></p>
-        <?php
-        if (isset($errors)) {
-            foreach ($errors as $error) {
-                echo $error;
-            }
-        }
-        ?>
+        <p id="form-message"></p>
     </div>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="scripts.js"></script>
 </body>
 </html>

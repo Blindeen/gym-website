@@ -16,7 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $serialized_data = filter_var_array($_POST, $serializer);
     if (in_array(null, $serialized_data)) {
-        $errors["email"] = "<p class='error'>Email is invalid</p>";
+        echo json_encode([
+            "statusCode" => 400,
+            "message" => "Invalid email",
+        ]);
     } else {
         $email = trim($serialized_data["email"]);
         $password = trim($serialized_data["password"]);
@@ -41,12 +44,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["first-name"] = $user_info["FirstName"];
                 $_SESSION["role"] = $role["Name"];
 
-                header("Location: " . $index);
+                echo json_encode([
+                    "statusCode" => 200,
+                    "message" => "User has been signed in",
+                ]);
             } else {
-                $errors["password"] = "<p class='error'>Incorrect password</p>";
+                echo json_encode([
+                    "statusCode" => 400,
+                    "message" => "Incorrect password",
+                ]);
             }
         } else {
-            $errors["email"] = "<p class='error'>User not found</p>";
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "User not found",
+            ]);
         }
     }
 }
