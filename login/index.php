@@ -32,7 +32,6 @@ private_route($guest, $index);
         <p id="form-message"></p>
     </div>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="scripts.js"></script>
 </body>
 </html>
