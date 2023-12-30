@@ -17,7 +17,7 @@ session_start();
 <body>
 <div class="mobile-menu">
     <a href="/">Home</a>
-    <?php badge("<a href='/classes/index.php'>Classes</a>"); ?>
+    <?php badge("<a href='/classes/index.php'>Activities</a>"); ?>
     <a href="#">Trainers</a>
     <a href="#">Contact</a>
     <?php
@@ -42,7 +42,7 @@ session_start();
     <header>
         <img src="assets/img/logo.png" alt="logo"/>
         <a class="link" href="/">Home</a>
-        <?php badge("<a class='link' href='/classes/index.php'>Classes</a>"); ?>
+        <?php badge("<a class='link' href='/classes/index.php'>Activities</a>"); ?>
         <a class="link" href="#">Trainers</a>
         <a class="link" href="#">Contact</a>
         <?php
