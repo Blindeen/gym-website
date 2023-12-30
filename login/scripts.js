@@ -39,6 +39,6 @@ const onSubmit = async e => {
             }
         }
     }
-}
+};
 
 document.querySelector('form').addEventListener('submit', onSubmit);
