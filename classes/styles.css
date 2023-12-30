@@ -19,6 +19,7 @@ body {
     align-items: center;
     gap: 30px;
     height: 300px;
+    width: 20vw;
     padding: 20px 30px 20px 30px;
     border-radius: var(--radius);
 
@@ -27,4 +28,35 @@ body {
 
 #pagination-wrapper {
     bottom: 20px !important;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #classes-wrapper {
+        width: 70vw;
+    }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #classes-wrapper {
+        width: 50vw;
+    }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #classes-wrapper {
+        width: 40vw;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #classes-wrapper {
+        width: 30vw;
+    }
+}
+/* Extra large devices (large laptops and desktops, 1200px and down) */
+@media only screen and (min-width: 1200px) {
+    #classes-wrapper {
+        width: 20vw;
+    }
 }
