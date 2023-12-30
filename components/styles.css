@@ -8,6 +8,13 @@
     --steam: #DDDDDD;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 input {
     box-sizing: border-box;
     border: 2px solid var(--blue);
@@ -55,7 +62,35 @@ select {
     }
 }
 
-header {
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+thead {
+    background-color: var(--blue);
+
+    color: var(--white);
+}
+
+tr {
+    height: 50px;
+}
+
+td, th {
+    min-width: 90px;
+    border: 1px solid var(--steam);
+    padding: 8px;
+
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+#navbar-header {
     display: flex;
     justify-content: flex-end;
     width: 100vw;
@@ -67,27 +102,6 @@ header {
         color: var(--white);
         text-decoration: none;
     }
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-}
-
-tr {
-    height: 50px;
-}
-
-td, th {
-    border: 1px solid var(--steam);
-    padding: 8px;
-
-    text-align: center;
-}
-
-td {
-    text-align: left;
 }
 
 #user-name {
@@ -284,4 +298,30 @@ td {
 
     box-shadow: 0 2px 5px rgba(3, 41, 92, 0.3);
     cursor: pointer;
+}
+
+.badge-wrapper {
+    position: relative;
+
+    & :first-child {
+        position: static;
+    }
+}
+
+.badge {
+    position: absolute;
+    right: -13px;
+    top: -13px;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    color: var(--white);
+    background-color: var(--red);
+
+    font-size: 13px;
 }

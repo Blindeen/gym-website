@@ -5,7 +5,7 @@ function table(
     string $query,
     int    $page,
     int    $per_page,
-    string $action = null,
+    callable $action = null,
     bool   $pagination = false,
     string $pagination_query = null): void
 {
@@ -34,12 +34,9 @@ function table(
             echo "<td>$value</td>";
         }
         if ($action) {
-            echo "
-                <td class='action'>
-                    <a class='button edit-button' data-id='$row[0]'>Edit</a>
-                    <a class='button remove-button' href='$action$row[0]'>Delete</a>
-                </td></tr>";
+            echo $action($row);
         }
+        echo "</tr>";
     endwhile;
 
     echo "</tbody></table></div>";

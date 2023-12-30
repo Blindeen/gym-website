@@ -11,99 +11,52 @@ body {
     font-family: var(--font);
 }
 
-label {
-    &::before {
-        content: '' !important;
-    }
-}
+#classes-wrapper {
+    position: relative;
 
-#dashboard {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    height: 300px;
+    width: 20vw;
     padding: 20px 30px 20px 30px;
     border-radius: var(--radius);
 
     background-color: var(--white);
 }
 
-#table-pane {
-    position: relative;
-    max-width: 100%;
-    height: 310px;
-
-    & h2 {
-        text-align: center;
-    }
-}
-
-#form-wrapper {
-    width: 50%;
-}
-
-#modal-form-wrapper {
-    position: relative;
-
-    width: 15vw;
-    border-radius: var(--radius);
-    padding: 20px 30px 20px 30px;
-
-    background-color: var(--white);
-
-    & h2 {
-        text-align: center;
-    }
-}
-
-#modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 3vh;
-}
-
-#add-activity-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+#pagination-wrapper {
+    bottom: 20px !important;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    #form-wrapper {
+    #classes-wrapper {
         width: 70vw;
-    }
-
-    #dashboard {
-        width: 100%;
-        padding: var(--padding) 0;
-    }
-
-    #table-pane {
-        max-width: 90%;
     }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    #form-wrapper, #modal-form-wrapper {
-        width: 40vw;
+    #classes-wrapper {
+        width: 50vw;
     }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    #form-wrapper, #modal-form-wrapper {
-        width: 35vw;
+    #classes-wrapper {
+        width: 40vw;
     }
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    #form-wrapper, #modal-form-wrapper {
+    #classes-wrapper {
         width: 30vw;
     }
 }
 /* Extra large devices (large laptops and desktops, 1200px and down) */
 @media only screen and (min-width: 1200px) {
-    #form-wrapper, #modal-form-wrapper {
+    #classes-wrapper {
         width: 20vw;
     }
 }

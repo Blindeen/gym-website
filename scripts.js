@@ -55,6 +55,19 @@ const slider = () => {
     }, timeout);
 };
 
+addEventListener('DOMContentLoaded', () => {
+    const badge = document.querySelectorAll(".badge");
+    const favoriteActivities = JSON.parse(sessionStorage.getItem('favoriteActivities')) ?? [];
+
+    const len = favoriteActivities.length;
+    if (len > 0) {
+        badge.forEach(el => {
+            el.style.display = 'flex';
+            el.innerText = favoriteActivities.length;
+        });
+    }
+});
+
 hamburgerMenu();
 scrollToTop();
 slider();
