@@ -4,13 +4,11 @@ require_once "../utils.php";
 
 session_start();
 $conn = db_connection();
-
-["SERVER_ERROR_MESSAGE" => $error, "TRAINER_DASHBOARD_PAGE" => $trainer_dashboard] = CONSTANTS;
+["SERVER_ERROR_MESSAGE" => $error] = CONSTANTS;
 
 $data = [
     "trainer-id" => $_SESSION["id"] ?? null,
     "activity-id" => $_GET["id"] ?? null,
-    "current-page" => $_GET["page"] ?? null,
 ];
 $validated_data = filter_var_array($data, FILTER_VALIDATE_INT);
 
@@ -18,7 +16,7 @@ if (in_array(null, $validated_data)) {
     exit($error);
 }
 
-["trainer-id" => $trainer_id, "activity-id" => $activity_id, "current-page" => $page] = $validated_data;
+["trainer-id" => $trainer_id, "activity-id" => $activity_id] = $validated_data;
 
 $serializer = [
     "activity-name" => [
@@ -42,8 +40,6 @@ $start = date_create($query_data["start-hour"])->getTimestamp();
 $end = date_create($query_data["end-hour"])->getTimestamp();
 
 if (!in_array(null, $query_data) && ($end - $start) > 0) {
-    $errors = [];
-
     $query = "UPDATE Activities SET Name=?, DayOfWeek=?, StartTime=?, EndTime=?, RoomID=? WHERE ID=? AND TrainerID=?";
     try {
         perform_query($conn, $query, array_values([...$query_data, $activity_id, $trainer_id]), "sssssss");
@@ -51,28 +47,35 @@ if (!in_array(null, $query_data) && ($end - $start) > 0) {
         error_log($exception->getMessage());
         exit($error);
     }
+
+    echo json_encode([
+        "statusCode" => 201,
+        "message" => "Activity has been updated",
+    ]);
 } else {
     if (!$query_data["activity-name"]) {
-        $errors["activity-name"] = "<p class='error'>Minimum 2 letters and first capitalized</p>";
+        echo json_encode([
+            "statusCode" => 400,
+            "message" => "Minimum 2 letters and first capitalized",
+            "fields" => ["activity-name"],
+        ]);
+    } else if (($end - $start) <= 0) {
+        echo json_encode([
+            "statusCode" => 400,
+            "message" => "End time has to be greater than start time",
+            "fields" => ["start-hour", "end-hour"],
+        ]);
+    } else if (!$query_data["weekday"]) {
+        echo json_encode([
+            "statusCode" => 400,
+            "message" => "Incorrect weekday",
+            "fields" => ["weekday"],
+        ]);
+    } else if (!$query_data["room"]) {
+        echo json_encode([
+            "statusCode" => 400,
+            "message" => "Incorrect room number",
+            "fields" => ["room"],
+        ]);
     }
-
-    if (($end - $start) <= 0) {
-        $errors["time"] = "<p class='error'>End time has to be greater than start time</p>";
-    }
-
-    if (!$query_data["weekday"]) {
-        $errors["weekday"] = "<p class='error'>Incorrect weekday</p>";
-    }
-
-    if (!$query_data["room"]) {
-        $errors["room"] = "<p class='error'>Incorrect room number</p>";
-    }
-
-    setcookie("errors", json_encode($errors));
 }
-
-$redirect_path = "Location: " . $trainer_dashboard . "?page=$page";
-if (count($errors)) {
-    $redirect_path .= "&modal=$activity_id";
-}
-header($redirect_path);

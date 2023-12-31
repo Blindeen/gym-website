@@ -42,21 +42,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } catch (mysqli_sql_exception $exception) {
             exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
         }
+
+        echo json_encode([
+            "statusCode" => 201,
+            "message" => "Activity has been added",
+        ]);
     } else {
         if (!$query_data["activity-name"]) {
-            $errors["activity-name"] = "<p class='error'>Minimum 2 letters and first capitalized</p>";
-        }
-
-        if (($end - $start) <= 0) {
-            $errors["time"] = "<p class='error'>End time has to be greater than start time</p>";
-        }
-
-        if (!$query_data["weekday"]) {
-            $errors["weekday"] = "<p class='error'>Incorrect weekday</p>";
-        }
-
-        if (!$query_data["room"]) {
-            $errors["room"] = "<p class='error'>Incorrect room number</p>";
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "Minimum 2 letters and first capitalized",
+                "fields" => ["activity-name"],
+            ]);
+        } else if (($end - $start) <= 0) {
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "End time has to be greater than start time",
+                "fields" => ["start-hour", "end-hour"],
+            ]);
+        } else if (!$query_data["weekday"]) {
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "Incorrect weekday",
+                "fields" => ["weekday"],
+            ]);
+        } else if (!$query_data["room"]) {
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "Incorrect room number",
+                "fields" => ["room"],
+            ]);
         }
     }
 }

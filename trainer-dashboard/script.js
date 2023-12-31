@@ -1,25 +1,43 @@
-const editButtons = document.querySelectorAll('.edit-button');
+const addActivityForm = document.querySelector('#add-activity-form');
+const addActivityFormElements = addActivityForm.elements;
+const addActivityFormElementsArray = Array.from(addActivityFormElements).slice(0, addActivityFormElements.length - 1);
+const addActivityFormMessage = document.querySelector('#form-wrapper').querySelector('#form-message');
+
 const modalForm = editModal.querySelector('#modal-form');
+const editButtons = document.querySelectorAll('.edit-button');
+const editActivityFormElements = modalForm.elements;
+const editActivityFormElementsArray = Array.from(editActivityFormElements).slice(0, editActivityFormElements.length - 1);
+const editActivityFormMessage = document.querySelector('#modal-form-wrapper').querySelector('#form-message');
 
-const modifyUrl = (queryString) => {
-    const {name, value} = queryString;
-    if (value) {
-        const url = new URL(location.href);
-        const params = url.searchParams;
-        params.append(name, value);
-        history.pushState({}, '', url);
+const sendRequest = async (url, formData) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: formData
+    });
+
+    return await response.json();
+}
+
+const onSubmitAddActivity = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    addActivityFormElementsArray.forEach(el => formData.set(el.name, el.value));
+    const responseBody = await sendRequest(addActivityForm.action, formData);
+    const {statusCode, message, fields} = responseBody;
+    addActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
+    if (statusCode === 201) {
+        window.location.reload();
+    } else {
+        addActivityFormMessage.setAttribute('class', 'form-error');
+        addActivityFormMessage.innerText = message;
+        fields.forEach(field => {
+            addActivityForm.querySelector('#' + field).setAttribute('class', 'input-error');
+        });
     }
-};
+}
 
-const configForm = (editButton) => {
-    const urlSearchParams = new URLSearchParams(location.search);
-    const page = urlSearchParams.get('page') ?? '1';
-    const ID = editButton.getAttribute(constants.dataAttribute)
-    !urlSearchParams.get('modal') && modifyUrl({name: 'modal', value: ID})
-
-    editModal.style.display = constants.displayFlex;
-    modalForm.action = constants.actionFilePath + ID + '&page=' + page;
-};
+addActivityForm.addEventListener('submit', onSubmitAddActivity);
 
 const retrieveData = (editButton) => {
     const actionCell = editButton.parentElement;
@@ -47,29 +65,51 @@ const setFormValues = (formFields, dataRow) => {
     })
 };
 
-addEventListener('DOMContentLoaded', () => {
-    const modalID = new URLSearchParams(location.search).get('modal');
-    if (modalID) {
-        const editButton = Array.from(editButtons).find(
-            value => value.getAttribute(constants.dataAttribute) === modalID
-        );
-
-        editButton && editButton.click();
-    }
-});
-
-[modalCloseButton, editModal].forEach(el => {
-    el.addEventListener('click', (e) => {
-        if (el === editModal) {
-            if (e.target !== editModal) return;
-        }
-        Array.from(modalForm.querySelectorAll('.error')).forEach(el => el.remove());
-        document.cookie = "errors=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    })
-});
-
 editButtons.forEach(editButton => editButton.addEventListener('click', () => {
-    configForm(editButton);
     const {formFields, dataRow} = retrieveData(editButton);
     setFormValues(formFields, dataRow);
+    const activityID = editButton.getAttribute('data-id');
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        editActivityFormElementsArray.forEach(el => formData.set(el.name, el.value));
+        const url = modalForm.action + '?id=' + activityID;
+        const responseBody = await sendRequest(url, formData);
+        const {statusCode, message, fields} = responseBody;
+        editActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
+        if (statusCode === 201) {
+            window.location.reload();
+        } else {
+            editActivityFormMessage.setAttribute('class', 'form-error');
+            editActivityFormMessage.innerText = message;
+            fields.forEach(field => {
+                modalForm.querySelector('#' + field).setAttribute('class', 'input-error');
+            });
+        }
+    }
+
+    modalForm.addEventListener('submit', onSubmit);
+    editModal.style.display = constants.displayFlex;
 }));
+
+const clearModalForm = () => {
+    editActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
+    editActivityFormMessage.innerText = '';
+}
+
+modalCloseButton.addEventListener('click', () => clearModalForm());
+
+editModal.addEventListener('click', (e) => {
+    if (e.target !== editModal) return;
+    clearModalForm();
+});
+
+addEventListener('keyup', (e) => {
+    if (e.key === constants.escapeKey) {
+        if (editActivityFormMessage.innerText !== '') {
+            clearModalForm();
+        }
+    }
+});

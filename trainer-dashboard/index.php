@@ -26,11 +26,10 @@ private_route($trainer, $index);
             <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
-            <form id="add-activity-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <form id="add-activity-form" action="add-activity.php" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
-                    <?php if (isset($errors["activity-name"])) echo $errors["activity-name"] ?>
                 </div>
                 <div class="form-row-wrapper">
                     <div class="form-row">
@@ -43,7 +42,6 @@ private_route($trainer, $index);
                             <input id="end-hour" name="end-hour" type="time" min="06:00" max="21:00" required/>
                         </div>
                     </div>
-                    <?php if (isset($errors["time"])) echo $errors["time"] ?>
                 </div>
                 <div class="form-row">
                     <div class="field">
@@ -56,7 +54,6 @@ private_route($trainer, $index);
                             <option value="Thursday">Thursday</option>
                             <option value="Friday">Friday</option>
                         </select>
-                        <?php if (isset($errors["weekday"])) echo $errors["weekday"] ?>
                     </div>
                     <div class="field">
                         <label for="room">Room</label>
@@ -75,11 +72,11 @@ private_route($trainer, $index);
                             endwhile;
                             ?>
                         </select>
-                        <?php if (isset($errors["room"])) echo $errors["room"]?>
                     </div>
                 </div>
                 <button type="submit">Add</button>
             </form>
+            <p id="form-message"></p>
         </div>
     </div>
     <?php require_once "edit-activity-modal.php"; ?>
