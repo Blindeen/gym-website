@@ -23,9 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "statusCode" => 400,
                 "message" => "Invalid email",
             ]);
-        }
-
-        if (!$serialized_data["password"]) {
+        } else if (!$serialized_data["password"]) {
             echo json_encode([
                 "statusCode" => 400,
                 "message" => "Password cannot be empty",

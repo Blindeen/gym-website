@@ -20,7 +20,7 @@ private_route($guest, $index);
     <h2>Sign in</h2>
     <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email"/>
+        <input id="email" name="email" type="text"/>
     </div>
     <div class="field">
         <label for="password">Password</label>
