@@ -61,6 +61,6 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)):
     $modal_content .= "<option value='$id'>$room_number</option>";
 endwhile;
 
-$modal_content .= "</select>$room</div></div><button type='submit'>Edit</button></form><p id='form-message'></p>";
+$modal_content .= "</select></div></div><button type='submit'>Edit</button></form><p id='form-message'></p>";
 
 modal("Edit activity", $modal_content);

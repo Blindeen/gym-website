@@ -1,6 +1,6 @@
 <?php
 require_once "constants.php";
-require_once "components/badge/index.php";
+require_once "./components/menu/index.php";
 
 session_start();
 ?>
@@ -16,51 +16,13 @@ session_start();
 </head>
 <body>
 <div class="mobile-menu">
-    <a href="/">Home</a>
-    <?php badge("<a href='/classes/index.php'>Activities</a>"); ?>
-    <a href="#">Trainers</a>
-    <a href="#">Contact</a>
-    <?php
-    if (!isset($_SESSION["id"])) {
-        echo "<a href='/register/index.php'>Buy pass</a>";
-        echo "<a href='/login/index.php'>Login</a>";
-    }
-
-    if (isset($_SESSION["role"])) {
-        switch ($_SESSION["role"]) {
-            case CONSTANTS["TRAINER"]:
-                echo "<a class='link' href='/trainer-dashboard/index.php'>Dashboard</a>";
-                break;
-            case CONSTANTS["CLIENT"]:
-                echo "<a class='link' href='/client-dashboard.php'>My activities</a>";
-        }
-    }
-    ?>
+    <?php menu(); ?>
     <div class="hamburger-close-button">X</div>
 </div>
 <div class="first-section">
     <header>
         <img src="assets/img/logo.png" alt="logo"/>
-        <a class="link" href="/">Home</a>
-        <?php badge("<a class='link' href='/classes/index.php'>Activities</a>"); ?>
-        <a class="link" href="#">Trainers</a>
-        <a class="link" href="#">Contact</a>
-        <?php
-        if (!isset($_SESSION["id"])) {
-            echo "<a id='link-register-button' class='link-button' href='/register/index.php'>Buy pass</a>";
-            echo "<a class='link-button' href='/login/index.php'>Login</a>";
-        }
-
-        if (isset($_SESSION["role"])) {
-            switch ($_SESSION["role"]) {
-                case CONSTANTS["TRAINER"]:
-                    echo "<a class='link' href='/trainer-dashboard/index.php'>Dashboard</a>";
-                    break;
-                case CONSTANTS["CLIENT"]:
-                    echo "<a class='link' href='/client-dashboard.php'>My activities</a>";
-            }
-        }
-        ?>
+        <?php menu(); ?>
     </header>
     <header class="mobile-header">
         <h2>FitSphere</h2>
