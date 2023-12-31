@@ -17,7 +17,7 @@ session_start();
 <?php navbar(); ?>
 <main>
     <div id="classes-wrapper">
-        <?php require_once "classes-table.php" ?>
+        <?php require_once "activities-table.php" ?>
     </div>
 </main>
 <script src="scripts.js"></script>

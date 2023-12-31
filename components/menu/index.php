@@ -4,7 +4,7 @@ require_once "components/badge/index.php";
 function menu():void
 {
     $output = "<a class='link' href='/'>Home</a>";
-    $output .= badge("<a class='link' href='/classes/index.php'>Activities</a>");
+    $output .= badge("<a class='link' href='/activities/index.php'>Activities</a>");
     $output .= "<a class='link' href='#'>Trainers</a><a class='link' href='#'>Contact</a>";
 
     if (!isset($_SESSION["id"])) {
