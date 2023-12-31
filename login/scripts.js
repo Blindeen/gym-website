@@ -34,7 +34,8 @@ const onSubmit = async e => {
             case 'User not found': {
                 email.setAttribute('class', 'input-error');
             } break;
-            case 'Incorrect password': {
+            case 'Incorrect password':
+            case 'Password cannot be empty': {
                 password.setAttribute('class', 'input-error');
             }
         }

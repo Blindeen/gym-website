@@ -7,19 +7,30 @@ $conn = db_connection();
 
 ["SERVER_ERROR_MESSAGE" => $error_message, "INDEX_PAGE" => $index] = CONSTANTS;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $serializer = array(
-        "email" => array(
+    $serializer = [
+        "email" => [
             "filter" => FILTER_VALIDATE_EMAIL,
-        ),
-        "password" => FILTER_FLAG_NONE,
-    );
+        ],
+        "password" => [
+            "filter" => FILTER_FLAG_NONE,
+        ],
+    ];
 
     $serialized_data = filter_var_array($_POST, $serializer);
     if (in_array(null, $serialized_data)) {
-        echo json_encode([
-            "statusCode" => 400,
-            "message" => "Invalid email",
-        ]);
+        if (!$serialized_data["email"]) {
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "Invalid email",
+            ]);
+        }
+
+        if (!$serialized_data["password"]) {
+            echo json_encode([
+                "statusCode" => 400,
+                "message" => "Password cannot be empty",
+            ]);
+        }
     } else {
         $email = trim($serialized_data["email"]);
         $password = trim($serialized_data["password"]);
