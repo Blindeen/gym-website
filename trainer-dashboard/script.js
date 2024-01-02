@@ -1,8 +1,9 @@
-import {sendRequest} from "../utils.js";
-import {editModal, modalCloseButton, closeModal, isModalOpen, constants} from "../components/modal/script.js";
+import {sendRequest} from '../utils.js';
+import {editModal, modalCloseButton, closeModal, isModalOpen, constants} from '../components/modal/script.js';
 
-import addActivity from "./addActivity.js";
-import editActivity from "./editActivity.js";
+import addActivity from './addActivity.js';
+import editActivity from './editActivity.js';
+import deleteActivity from './deleteActivity.js';
 
 const modalForm = editModal.querySelector('#modal-form');
 const editActivityFormElements = modalForm.elements;
@@ -36,3 +37,4 @@ addEventListener('keyup', (e) => {
 
 document.querySelector('#add-activity-form').addEventListener('submit', addActivity);
 document.querySelectorAll('.edit-button').forEach(editActivity);
+document.querySelectorAll('.remove-button').forEach(deleteActivity);
