@@ -214,6 +214,8 @@ td {
     font-weight: bold;
     text-decoration: none;
     color: var(--white);
+
+    cursor: pointer;
 }
 
 .remove-button {
@@ -222,8 +224,6 @@ td {
 
 .edit-button {
     background: radial-gradient(80.57% 177.78% at 43.23% -101.85%, #0084FF 42.37%, #055CCF 100%);
-
-    cursor: pointer;
 }
 
 .field {
