@@ -10,12 +10,13 @@ const onSubmit = async (e) => {
 
     const formData = new FormData();
     registerFormElementsArray.forEach(el => formData.set(el.name, el.value));
-    const responseBody = await sendRequest(registerForm.action, formData);
-    const {statusCode, message} = responseBody;
+    const response = await sendRequest(registerForm.action, formData);
+    const responseBody = await response.json();
+    const {message} = responseBody;
 
     formMessage.innerText = message;
     registerFormElementsArray.forEach(el => el.removeAttribute('class'));
-    if (statusCode >= 200 && statusCode <= 299) {
+    if (response.ok) {
         formMessage.setAttribute('class', 'form-success');
         registerFormElementsArray.forEach(el => el.value = '');
         setTimeout(() => window.location.replace('http://localhost:81/'), 1000);

@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $serialized_data = filter_var_array($_POST, $serializer);
     if (in_array(null, $serialized_data)) {
-        $response["statusCode"] = 400;
         foreach ($serialized_data as $key => $value) {
             if ($value == null) {
                 if ($key == "password") {
@@ -57,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        exit(json_encode($response));
+        response(400, $response);
     }
 
     $serialized_data["password"] = password_hash($serialized_data["password"], PASSWORD_DEFAULT);
@@ -68,16 +67,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         perform_query($conn, $query, $params, "sssssss");
     } catch (mysqli_sql_exception $exception) {
+        $status_code = null;
         if ($exception->getCode() == CONSTANTS["DUPLICATE_ERROR"]) {
-            $response["statusCode"] = 400;
+            $status_code = 400;
             $response["message"] = "User already exists";
             $response["fields"] = ["email"];
         } else {
-            $response["statusCode"] = 500;
+            $status_code = 500;
             $response["message"] = "Server internal error";
         }
 
-        exit(json_encode($response));
+        response($status_code, $response);
     }
 
     $query = "SELECT ID, FirstName FROM Members WHERE Email = ?";
@@ -85,9 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = perform_query($conn, $query, [$serialized_data["email"]], "s");
         $member_data = $result->fetch_assoc();
     } catch (mysqli_sql_exception $exception) {
-        $response["statusCode"] = 500;
         $response["message"] = "Server internal error";
-        exit(json_encode($response));
+        response(500, $response);
     }
 
     $query = "INSERT INTO AddressesContacts (AddressLine, City, PostalCode, PhoneNumber, MemberID) VALUES (?, ?, ?, ?, ?)";
@@ -95,9 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $params = array_values(array_slice([...$serialized_data, $member_data["ID"]], 7));
         perform_query($conn, $query, $params, "sssss");
     } catch (mysqli_sql_exception $exception) {
-        $response["statusCode"] = 500;
         $response["message"] = "Server internal error";
-        exit(json_encode($response));
+        response(500, $response);
     }
 
     session_start();
@@ -105,7 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["first-name"] = $member_data["FirstName"];
     $_SESSION["role"] = CONSTANTS["CLIENT"];
 
-    $response["statusCode"] = 201;
     $response["message"] = "User has been signed up";
-    echo json_encode($response);
+    response(201, $response);
 }
