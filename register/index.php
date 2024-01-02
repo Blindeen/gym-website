@@ -1,9 +1,9 @@
 <?php
-require_once '../db-connection.php';
-require_once '../utils.php';
+require_once "../db-connection.php";
+require_once "../utils.php";
 
 $conn = db_connection();
-['GUEST' => $guest, 'INDEX_PAGE' => $index] = CONSTANTS;
+["GUEST" => $guest, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($guest, $index);
 ?>
 <!DOCTYPE html>
@@ -64,17 +64,13 @@ private_route($guest, $index);
                 <select id="payment-method" name="payment-method">
                     <option selected hidden></option>
                     <?php
-                    $result = $conn->query('SELECT * FROM PaymentMethods');
+                    $result = $conn->query("SELECT * FROM PaymentMethods");
                     while ($row = $result->fetch_array(MYSQLI_ASSOC)):
                         ?>
-
-                        <option value="<?php echo $row['ID']; ?>">
-                            <?php echo $row['Type']; ?>
+                        <option value="<?php echo $row["ID"]; ?>">
+                            <?php echo $row["Type"]; ?>
                         </option>
-
-                    <?php
-                    endwhile;
-                    ?>
+                    <?php endwhile; ?>
                 </select>
             </div>
             <div class="field">
@@ -82,17 +78,13 @@ private_route($guest, $index);
                 <select id="pass" name="pass">
                     <option selected hidden></option>
                     <?php
-                    $result = $conn->query('SELECT * FROM Passes');
+                    $result = $conn->query("SELECT * FROM Passes");
                     while ($row = $result->fetch_array(MYSQLI_ASSOC)):
                         ?>
-
-                        <option value="<?php echo $row['ID']; ?>">
-                            <?php echo $row['Type']; ?>
+                        <option value="<?php echo $row["ID"]; ?>">
+                            <?php echo $row["Type"]; ?>
                         </option>
-
-                    <?php
-                    endwhile;
-                    ?>
+                    <?php endwhile; ?>
                 </select>
             </div>
         </div>
@@ -108,5 +100,5 @@ private_route($guest, $index);
     </form>
 </div>
 </body>
-<script src="scripts.js"></script>
+<script type="module" src="scripts.js"></script>
 </html>

@@ -16,22 +16,24 @@ private_route($guest, $index);
     <title>FitSphere - Login</title>
 </head>
 <body>
-<form class="form-container" action="login.php" method="POST">
+<div id="form-wrapper">
     <h2>Sign in</h2>
-    <div class="field">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="text"/>
-    </div>
-    <div class="field">
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password"/>
-    </div>
-    <div id="submit">
-        <button type="submit">Sign in</button>
-        <p>Don't have an account? <a href="../register/index.php">Sign up</a></p>
-        <p id="form-message"></p>
-    </div>
-</form>
-<script src="scripts.js"></script>
+    <form id="login-form" action="login.php" method="POST">
+        <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="text"/>
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password"/>
+        </div>
+        <div id="submit">
+            <button type="submit">Sign in</button>
+            <p id="form-message"></p>
+            <p>Don't have an account? <a href="../register/index.php">Sign up</a></p>
+        </div>
+    </form>
+</div>
+<script type="module" src="scripts.js"></script>
 </body>
 </html>
