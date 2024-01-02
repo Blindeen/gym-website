@@ -5,7 +5,6 @@ require_once "../utils.php";
 session_start();
 $conn = db_connection();
 
-["SERVER_ERROR_MESSAGE" => $error_message, "INDEX_PAGE" => $index] = CONSTANTS;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = [
         "email" => [
@@ -19,13 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serialized_data = filter_var_array($_POST, $serializer);
     if (in_array(null, $serialized_data)) {
         if (!$serialized_data["email"]) {
-            echo json_encode([
-                "statusCode" => 400,
+            response(400, [
                 "message" => "Invalid email",
             ]);
         } else if (!$serialized_data["password"]) {
-            echo json_encode([
-                "statusCode" => 400,
+            response(400, [
                 "message" => "Password cannot be empty",
             ]);
         }
@@ -44,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $role = $role_result->fetch_assoc();
             }
         } catch (mysqli_sql_exception $exception) {
-            exit($error_message);
+            response(500, [
+                "message" => "Server internal error",
+            ]);
         }
 
         if ($user_result->num_rows) {
@@ -53,19 +52,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["first-name"] = $user_info["FirstName"];
                 $_SESSION["role"] = $role["Name"];
 
-                echo json_encode([
-                    "statusCode" => 200,
+                response(200, [
                     "message" => "User has been signed in",
                 ]);
             } else {
-                echo json_encode([
-                    "statusCode" => 400,
+                response(400, [
                     "message" => "Incorrect password",
                 ]);
             }
         } else {
-            echo json_encode([
-                "statusCode" => 400,
+            response(400, [
                 "message" => "User not found",
             ]);
         }
