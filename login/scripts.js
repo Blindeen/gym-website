@@ -1,32 +1,25 @@
-const formMessage = document.querySelector('#form-message');
-const email = document.querySelector('#email');
-const password = document.querySelector('#password');
+import {sendRequest} from "../utils.js";
 
+const loginForm = document.querySelector('#login-form');
+const email = loginForm.querySelector('#email');
+const password = loginForm.querySelector('#password');
 const formElements = [email, password];
+const formMessage = document.querySelector('#form-message');
 
-const sendRequest = async formData => {
-    const response = await fetch('login.php', {
-        method: 'POST',
-        body: formData
-    });
-
-    return await response.json();
-}
-
-const onSubmit = async e => {
+const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     formElements.forEach(el => formData.set(el.name, el.value));
-    const responseBody = await sendRequest(formData);
+    const responseBody = await sendRequest(loginForm.action, formData);
     const {statusCode, message} = responseBody;
 
     formMessage.innerText = message;
     formElements.forEach(el => el.removeAttribute('class'));
-    if (statusCode === 200) {
+    if (statusCode >= 200 && statusCode <= 299) {
         formMessage.setAttribute('class', 'form-success');
         formElements.forEach(el => el.value = '');
-        setTimeout(() => window.location.replace('http://localhost:81/'), 1000);
+        setTimeout(() => location.replace(location.origin), 1000);
     } else {
         formMessage.setAttribute('class', 'form-error');
         switch (message) {
@@ -42,4 +35,4 @@ const onSubmit = async e => {
     }
 };
 
-document.querySelector('form').addEventListener('submit', onSubmit);
+loginForm.addEventListener('submit', onSubmit);

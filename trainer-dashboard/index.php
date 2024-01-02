@@ -2,8 +2,8 @@
 require_once "../utils.php";
 require_once "../db-connection.php";
 require_once "../components/header/index.php";
-require_once "add-activity.php";
 
+$conn = db_connection();
 ["TRAINER" => $trainer, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($trainer, $index);
 ?>
@@ -62,15 +62,11 @@ private_route($trainer, $index);
                             <?php
                             $result = $conn->query("SELECT * FROM Rooms");
                             while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-                            ?>
-
+                                ?>
                                 <option value="<?php echo $row["ID"]; ?>">
                                     <?php echo $row["RoomNumber"]; ?>
                                 </option>
-
-                            <?php
-                            endwhile;
-                            ?>
+                            <?php endwhile; ?>
                         </select>
                     </div>
                 </div>
@@ -82,6 +78,6 @@ private_route($trainer, $index);
     <?php require_once "edit-activity-modal.php"; ?>
 </main>
 <script src="../components/modal/script.js"></script>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>

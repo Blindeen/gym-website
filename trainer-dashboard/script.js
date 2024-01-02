@@ -1,3 +1,5 @@
+import {sendRequest} from "../utils.js";
+
 const addActivityForm = document.querySelector('#add-activity-form');
 const addActivityFormElements = addActivityForm.elements;
 const addActivityFormElementsArray = Array.from(addActivityFormElements).slice(0, addActivityFormElements.length - 1);
@@ -9,15 +11,6 @@ const editActivityFormElements = modalForm.elements;
 const editActivityFormElementsArray = Array.from(editActivityFormElements).slice(0, editActivityFormElements.length - 1);
 const editActivityFormMessage = document.querySelector('#modal-form-wrapper').querySelector('#form-message');
 
-const sendRequest = async (url, formData) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        body: formData
-    });
-
-    return await response.json();
-}
-
 const onSubmitAddActivity = async (e) => {
     e.preventDefault();
 
@@ -26,7 +19,7 @@ const onSubmitAddActivity = async (e) => {
     const responseBody = await sendRequest(addActivityForm.action, formData);
     const {statusCode, message, fields} = responseBody;
     addActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
-    if (statusCode === 201) {
+    if (statusCode >= 200 && statusCode <= 299) {
         window.location.reload();
     } else {
         addActivityFormMessage.setAttribute('class', 'form-error');
@@ -79,7 +72,7 @@ editButtons.forEach(editButton => editButton.addEventListener('click', () => {
         const responseBody = await sendRequest(url, formData);
         const {statusCode, message, fields} = responseBody;
         editActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
-        if (statusCode === 201) {
+        if (statusCode >= 200 && statusCode <= 299) {
             window.location.reload();
         } else {
             editActivityFormMessage.setAttribute('class', 'form-error');

@@ -1,16 +1,9 @@
+import {sendRequest} from "../utils.js";
+
 const registerForm = document.querySelector('#register-form');
 const registerFormElements = registerForm.elements;
 const registerFormElementsArray = Array.from(registerFormElements).slice(0, registerFormElements.length - 1);
 const formMessage = registerForm.querySelector('#form-message');
-
-const sendRequest = async (url, formData) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        body: formData
-    });
-
-    return await response.json();
-}
 
 const onSubmit = async (e) => {
     e.preventDefault();
