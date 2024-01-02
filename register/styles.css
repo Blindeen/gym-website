@@ -11,23 +11,31 @@ body {
 }
 
 h2 {
-    margin: 0;
+    margin-top: 0;
 }
 
 p {
-    font-size: 14px;
+    margin: 5px 0;
+
+    font-size: 13px;
 }
 
-.form-container {
-    box-sizing: border-box;
+#form-wrapper {
     display: flex;
     flex-direction: column;
-    width: 35%;
-    gap: 30px;
+    align-items: center;
+    max-width: 25vw;
     padding: 25px 60px;
     border-radius: var(--radius);
 
     background-color: var(--white);
+}
+
+#register-form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 @media screen and (max-width: 600px) {
