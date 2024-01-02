@@ -9,7 +9,10 @@ $conn = db_connection();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $validated_id = filter_var($_SESSION["id"] ?? null, FILTER_VALIDATE_INT);
     if (!$validated_id) {
-        exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+        exit(json_encode([
+            "statusCode" => 401,
+            "message" => "Unauthorized access",
+        ]));
     }
 
     $serializer = [
@@ -40,7 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             perform_query($conn, $query, prepare_data($params), "ssssss");
         } catch (mysqli_sql_exception $exception) {
-            exit(CONSTANTS["SERVER_ERROR_MESSAGE"]);
+            exit(json_encode([
+                "statusCode" => 500,
+                "message" => "Server internal error",
+            ]));
         }
 
         echo json_encode([

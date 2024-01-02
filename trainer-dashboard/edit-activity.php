@@ -4,7 +4,6 @@ require_once "../utils.php";
 
 session_start();
 $conn = db_connection();
-["SERVER_ERROR_MESSAGE" => $error] = CONSTANTS;
 
 $data = [
     "trainer-id" => $_SESSION["id"] ?? null,
@@ -13,7 +12,17 @@ $data = [
 $validated_data = filter_var_array($data, FILTER_VALIDATE_INT);
 
 if (in_array(null, $validated_data)) {
-    exit($error);
+    if (!$validated_data["trainer-id"]) {
+        exit(json_encode([
+            "statusCode" => 401,
+            "message" => "Unauthorized access",
+        ]));
+    } else if (!$validated_data["activity-id"]) {
+        exit(json_encode([
+            "statusCode" => 400,
+            "message" => "Missing activity id",
+        ]));
+    }
 }
 
 ["trainer-id" => $trainer_id, "activity-id" => $activity_id] = $validated_data;
@@ -44,8 +53,10 @@ if (!in_array(null, $query_data) && ($end - $start) > 0) {
     try {
         perform_query($conn, $query, array_values([...$query_data, $activity_id, $trainer_id]), "sssssss");
     } catch (mysqli_sql_exception $exception) {
-        error_log($exception->getMessage());
-        exit($error);
+        exit(json_encode([
+            "statusCode" => 500,
+            "message" => "Server internal error",
+        ]));
     }
 
     echo json_encode([
