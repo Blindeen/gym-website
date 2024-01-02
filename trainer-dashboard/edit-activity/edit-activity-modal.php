@@ -14,7 +14,7 @@ if (isset($_COOKIE["errors"])) {
 }
 
 $modal_content = "
-            <form id='modal-form' action='edit-activity.php' method='POST'>
+            <form id='modal-form' action='./edit-activity/edit-activity.php' method='POST'>
                 <div class='field'>
                     <label for='activity-name'>Activity name</label>
                     <input id='activity-name' name='activity-name' type='text'/>

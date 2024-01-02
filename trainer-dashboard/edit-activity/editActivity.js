@@ -1,5 +1,5 @@
-import {sendRequest} from "../utils.js";
-import {editModal, constants, openMondal} from "../components/modal/script.js";
+import {sendRequest} from "../../utils.js";
+import {editModal, constants, openMondal} from "../../components/modal/script.js";
 
 const modalForm = editModal.querySelector('#modal-form');
 const editActivityFormElements = modalForm.elements;

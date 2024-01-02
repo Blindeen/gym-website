@@ -1,4 +1,4 @@
-import {sendRequest} from "../utils.js";
+import {sendRequest} from "../../utils.js";
 
 const addActivityForm = document.querySelector('#add-activity-form');
 const addActivityFormElements = addActivityForm.elements;

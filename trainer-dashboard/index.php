@@ -26,7 +26,7 @@ private_route($trainer, $index);
             <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
-            <form id="add-activity-form" action="add-activity.php" method="POST">
+            <form id="add-activity-form" action="./add-activity/add-activity.php" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
@@ -75,7 +75,7 @@ private_route($trainer, $index);
             <p id="form-message"></p>
         </div>
     </div>
-    <?php require_once "edit-activity-modal.php"; ?>
+    <?php require_once "edit-activity/edit-activity-modal.php"; ?>
 </main>
 <script type="module" src="script.js"></script>
 </body>

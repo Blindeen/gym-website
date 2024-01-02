@@ -1,9 +1,9 @@
 import {sendRequest} from '../utils.js';
 import {editModal, modalCloseButton, closeModal, isModalOpen, constants} from '../components/modal/script.js';
 
-import addActivity from './addActivity.js';
-import editActivity from './editActivity.js';
-import deleteActivity from './deleteActivity.js';
+import addActivity from './add-activity/addActivity.js';
+import editActivity from './edit-activity/editActivity.js';
+import deleteActivity from './delete-activity/deleteActivity.js';
 
 const modalForm = editModal.querySelector('#modal-form');
 const editActivityFormElements = modalForm.elements;

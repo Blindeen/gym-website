@@ -1,7 +1,7 @@
 <?php
-require_once "../utils.php";
-require_once "../db-connection.php";
-require_once "../constants.php";
+require_once "../../utils.php";
+require_once "../../db-connection.php";
+require_once "../../constants.php";
 
 session_start();
 $conn = db_connection();

@@ -1,4 +1,4 @@
-import {sendRequest} from "../utils.js";
+import {sendRequest} from "../../utils.js";
 
 const onSubmit = (removeButton) => removeButton.addEventListener('click', async () => {
     const activityID = removeButton.getAttribute('data-id');
