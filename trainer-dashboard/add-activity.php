@@ -9,10 +9,9 @@ $conn = db_connection();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $validated_id = filter_var($_SESSION["id"] ?? null, FILTER_VALIDATE_INT);
     if (!$validated_id) {
-        exit(json_encode([
-            "statusCode" => 401,
+        response(401, [
             "message" => "Unauthorized access",
-        ]));
+        ]);
     }
 
     $serializer = [
@@ -43,41 +42,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             perform_query($conn, $query, prepare_data($params), "ssssss");
         } catch (mysqli_sql_exception $exception) {
-            exit(json_encode([
-                "statusCode" => 500,
+            response(500, [
                 "message" => "Server internal error",
-            ]));
+            ]);
         }
 
-        echo json_encode([
-            "statusCode" => 201,
+        response(201, [
             "message" => "Activity has been added",
         ]);
     } else {
+        $response = [];
         if (!$query_data["activity-name"]) {
-            echo json_encode([
-                "statusCode" => 400,
-                "message" => "Minimum 2 letters and first capitalized",
-                "fields" => ["activity-name"],
-            ]);
+            $response["message"] = "Minimum 2 letters and first capitalized";
+            $response["fields"] = ["activity-name"];
         } else if (($end - $start) <= 0) {
-            echo json_encode([
-                "statusCode" => 400,
-                "message" => "End time has to be greater than start time",
-                "fields" => ["start-hour", "end-hour"],
-            ]);
+            $response["message"] = "End time has to be greater than start time";
+            $response["fields"] = ["start-hour", "end-hour"];
         } else if (!$query_data["weekday"]) {
-            echo json_encode([
-                "statusCode" => 400,
-                "message" => "Incorrect weekday",
-                "fields" => ["weekday"],
-            ]);
+            $response["message"] = "Incorrect weekday";
+            $response["fields"] = ["weekday"];
         } else if (!$query_data["room"]) {
-            echo json_encode([
-                "statusCode" => 400,
-                "message" => "Incorrect room number",
-                "fields" => ["room"],
-            ]);
+            $response["message"] = "Incorrect room number";
+            $response["fields"] = ["room"];
         }
+
+        response(400, $response);
     }
 }

@@ -10,12 +10,14 @@ const onSubmit = async (e) => {
 
     const formData = new FormData();
     addActivityFormElementsArray.forEach(el => formData.set(el.name, el.value));
-    const responseBody = await sendRequest(addActivityForm.action, formData);
-    const {statusCode, message, fields} = responseBody;
+    const response = await sendRequest(addActivityForm.action, formData);
+    const responseBody = await response.json();
+    const {message} = responseBody;
     addActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
-    if (statusCode >= 200 && statusCode <= 299) {
+    if (response.ok) {
         window.location.reload();
     } else {
+        const {fields} = responseBody;
         addActivityFormMessage.setAttribute('class', 'form-error');
         addActivityFormMessage.innerText = message;
         fields.forEach(field => {
