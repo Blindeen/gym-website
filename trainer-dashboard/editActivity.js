@@ -43,12 +43,14 @@ const onSubmit = (editButton) => editButton.addEventListener('click', () => {
         const formData = new FormData();
         editActivityFormElementsArray.forEach(el => formData.set(el.name, el.value));
         const url = modalForm.action + '?id=' + activityID;
-        const responseBody = await sendRequest(url, formData);
-        const {statusCode, message, fields} = responseBody;
+        const response = await sendRequest(url, formData);
+        const responseBody = await response.json();
+        const {message} = responseBody;
         editActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
-        if (statusCode >= 200 && statusCode <= 299) {
+        if (response.ok) {
             window.location.reload();
         } else {
+            const {fields} = responseBody;
             editActivityFormMessage.setAttribute('class', 'form-error');
             editActivityFormMessage.innerText = message;
             fields.forEach(field => {

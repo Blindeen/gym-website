@@ -13,15 +13,13 @@ $validated_data = filter_var_array($data, FILTER_VALIDATE_INT);
 
 if (in_array(null, $validated_data)) {
     if (!$validated_data["trainer-id"]) {
-        exit(json_encode([
-            "statusCode" => 401,
+        response(401, [
             "message" => "Unauthorized access",
-        ]));
+        ]);
     } else if (!$validated_data["activity-id"]) {
-        exit(json_encode([
-            "statusCode" => 400,
+        response(400, [
             "message" => "Missing activity id",
-        ]));
+        ]);
     }
 }
 
@@ -48,45 +46,34 @@ $query_data = filter_var_array($_POST, $serializer);
 $start = date_create($query_data["start-hour"])->getTimestamp();
 $end = date_create($query_data["end-hour"])->getTimestamp();
 
-if (!in_array(null, $query_data) && ($end - $start) > 0) {
-    $query = "UPDATE Activities SET Name=?, DayOfWeek=?, StartTime=?, EndTime=?, RoomID=? WHERE ID=? AND TrainerID=?";
-    try {
-        perform_query($conn, $query, array_values([...$query_data, $activity_id, $trainer_id]), "sssssss");
-    } catch (mysqli_sql_exception $exception) {
-        exit(json_encode([
-            "statusCode" => 500,
-            "message" => "Server internal error",
-        ]));
+if (in_array(null, $query_data) || ($end - $start) <= 0) {
+    $response = [];
+    if (!$query_data["activity-name"]) {
+        $response["message"] = "Minimum 2 letters and first capitalized";
+        $response["fields"] = ["activity-name"];
+    } else if (($end - $start) <= 0) {
+        $response["message"] = "End time has to be greater than start time";
+        $response["fields"] = ["start-hour", "end-hour"];
+    } else if (!$query_data["weekday"]) {
+        $response["message"] = "Incorrect weekday";
+        $response["fields"] = ["weekday"];
+    } else if (!$query_data["room"]) {
+        $response["message"] = "Incorrect room number";
+        $response["fields"] = ["room"];
     }
 
-    echo json_encode([
-        "statusCode" => 201,
-        "message" => "Activity has been updated",
-    ]);
-} else {
-    if (!$query_data["activity-name"]) {
-        echo json_encode([
-            "statusCode" => 400,
-            "message" => "Minimum 2 letters and first capitalized",
-            "fields" => ["activity-name"],
-        ]);
-    } else if (($end - $start) <= 0) {
-        echo json_encode([
-            "statusCode" => 400,
-            "message" => "End time has to be greater than start time",
-            "fields" => ["start-hour", "end-hour"],
-        ]);
-    } else if (!$query_data["weekday"]) {
-        echo json_encode([
-            "statusCode" => 400,
-            "message" => "Incorrect weekday",
-            "fields" => ["weekday"],
-        ]);
-    } else if (!$query_data["room"]) {
-        echo json_encode([
-            "statusCode" => 400,
-            "message" => "Incorrect room number",
-            "fields" => ["room"],
-        ]);
-    }
+    response(400, $response);
 }
+
+$query = "UPDATE Activities SET Name=?, DayOfWeek=?, StartTime=?, EndTime=?, RoomID=? WHERE ID=? AND TrainerID=?";
+try {
+    perform_query($conn, $query, array_values([...$query_data, $activity_id, $trainer_id]), "sssssss");
+} catch (mysqli_sql_exception $exception) {
+    response(500, [
+        "message" => "Server internal error",
+    ]);
+}
+
+response(201, [
+    "message" => "Activity has been updated",
+]);
