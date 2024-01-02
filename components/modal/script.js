@@ -1,26 +1,21 @@
-const editModal = document.querySelector('#modal-background');
-const modalCloseButton = editModal.querySelector('.close-button');
+export const editModal = document.querySelector('#modal-background');
+export const modalCloseButton = editModal.querySelector('.close-button');
 
-const constants = {
+export const constants = {
     displayNone: 'none',
     displayFlex: 'flex',
     selectTag: 'SELECT',
     escapeKey: 'Escape',
 };
 
-modalCloseButton.addEventListener('click', () => {
-    editModal.style.display = constants.displayNone;
-});
+export const openMondal = () => {
+    editModal.style.display = constants.displayFlex;
+}
 
-editModal.addEventListener('click', (e) => {
-    if (e.target !== editModal) return;
+export const closeModal = () => {
     editModal.style.display = constants.displayNone;
-});
+}
 
-addEventListener('keyup', (e) => {
-    if (editModal.style.display !== constants.displayNone) {
-        if (e.key === constants.escapeKey) {
-            editModal.style.display = constants.displayNone;
-        }
-    }
-});
+export const isModalOpen = () => {
+    return editModal.style.display === constants.displayFlex;
+}

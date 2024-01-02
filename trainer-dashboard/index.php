@@ -77,7 +77,6 @@ private_route($trainer, $index);
     </div>
     <?php require_once "edit-activity-modal.php"; ?>
 </main>
-<script src="../components/modal/script.js"></script>
 <script type="module" src="script.js"></script>
 </body>
 </html>
