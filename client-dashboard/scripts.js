@@ -36,7 +36,7 @@ const unsubscribe = (button) => button.addEventListener('click', async () => {
        location.reload();
    } else {
        const responseBody = await response.json();
-       const {message, fields} = responseBody;
+       const {message} = responseBody;
        formMessage.setAttribute('class', 'form-error');
        formMessage.innerText = message;
    }
