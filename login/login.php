@@ -5,18 +5,27 @@ require_once "../utils.php";
 session_start();
 $conn = db_connection();
 
-["SERVER_ERROR_MESSAGE" => $error_message, "INDEX_PAGE" => $index] = CONSTANTS;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $serializer = array(
-        "email" => array(
+    $serializer = [
+        "email" => [
             "filter" => FILTER_VALIDATE_EMAIL,
-        ),
-        "password" => FILTER_FLAG_NONE,
-    );
+        ],
+        "password" => [
+            "filter" => FILTER_FLAG_NONE,
+        ],
+    ];
 
     $serialized_data = filter_var_array($_POST, $serializer);
     if (in_array(null, $serialized_data)) {
-        $errors["email"] = "<p class='error'>Email is invalid</p>";
+        if (!$serialized_data["email"]) {
+            response(400, [
+                "message" => "Invalid email",
+            ]);
+        } else if (!$serialized_data["password"]) {
+            response(400, [
+                "message" => "Password cannot be empty",
+            ]);
+        }
     } else {
         $email = trim($serialized_data["email"]);
         $password = trim($serialized_data["password"]);
@@ -32,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $role = $role_result->fetch_assoc();
             }
         } catch (mysqli_sql_exception $exception) {
-            exit($error_message);
+            response(500, [
+                "message" => "Server internal error",
+            ]);
         }
 
         if ($user_result->num_rows) {
@@ -41,12 +52,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["first-name"] = $user_info["FirstName"];
                 $_SESSION["role"] = $role["Name"];
 
-                header("Location: " . $index);
+                response(200, [
+                    "message" => "User has been signed in",
+                ]);
             } else {
-                $errors["password"] = "<p class='error'>Incorrect password</p>";
+                response(400, [
+                    "message" => "Incorrect password",
+                ]);
             }
         } else {
-            $errors["email"] = "<p class='error'>User not found</p>";
+            response(400, [
+                "message" => "User not found",
+            ]);
         }
     }
 }

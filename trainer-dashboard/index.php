@@ -2,8 +2,8 @@
 require_once "../utils.php";
 require_once "../db-connection.php";
 require_once "../components/header/index.php";
-require_once "add-activity.php";
 
+$conn = db_connection();
 ["TRAINER" => $trainer, "INDEX_PAGE" => $index] = CONSTANTS;
 private_route($trainer, $index);
 ?>
@@ -26,11 +26,10 @@ private_route($trainer, $index);
             <?php require_once "trainer-table.php"; ?>
         </div>
         <div id="form-wrapper">
-            <form id="add-activity-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <form id="add-activity-form" action="./add-activity/add-activity.php" method="POST">
                 <div class="field">
                     <label for="activity-name">Activity name</label>
                     <input id="activity-name" name="activity-name" type="text" required/>
-                    <?php if (isset($errors["activity-name"])) echo $errors["activity-name"] ?>
                 </div>
                 <div class="form-row-wrapper">
                     <div class="form-row">
@@ -43,7 +42,6 @@ private_route($trainer, $index);
                             <input id="end-hour" name="end-hour" type="time" min="06:00" max="21:00" required/>
                         </div>
                     </div>
-                    <?php if (isset($errors["time"])) echo $errors["time"] ?>
                 </div>
                 <div class="form-row">
                     <div class="field">
@@ -56,7 +54,6 @@ private_route($trainer, $index);
                             <option value="Thursday">Thursday</option>
                             <option value="Friday">Friday</option>
                         </select>
-                        <?php if (isset($errors["weekday"])) echo $errors["weekday"] ?>
                     </div>
                     <div class="field">
                         <label for="room">Room</label>
@@ -65,26 +62,21 @@ private_route($trainer, $index);
                             <?php
                             $result = $conn->query("SELECT * FROM Rooms");
                             while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-                            ?>
-
+                                ?>
                                 <option value="<?php echo $row["ID"]; ?>">
                                     <?php echo $row["RoomNumber"]; ?>
                                 </option>
-
-                            <?php
-                            endwhile;
-                            ?>
+                            <?php endwhile; ?>
                         </select>
-                        <?php if (isset($errors["room"])) echo $errors["room"]?>
                     </div>
                 </div>
                 <button type="submit">Add</button>
             </form>
+            <p id="form-message"></p>
         </div>
     </div>
-    <?php require_once "edit-activity-modal.php"; ?>
+    <?php require_once "edit-activity/edit-activity-modal.php"; ?>
 </main>
-<script src="../components/modal/script.js"></script>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>

@@ -1,75 +1,40 @@
-const editButtons = document.querySelectorAll('.edit-button');
+import {sendRequest} from '../utils.js';
+import {editModal, modalCloseButton, closeModal, isModalOpen, constants} from '../components/modal/script.js';
+
+import addActivity from './add-activity/addActivity.js';
+import editActivity from './edit-activity/editActivity.js';
+import deleteActivity from './delete-activity/deleteActivity.js';
+
 const modalForm = editModal.querySelector('#modal-form');
+const editActivityFormElements = modalForm.elements;
+const editActivityFormElementsArray = Array.from(editActivityFormElements).slice(0, editActivityFormElements.length - 1);
+const editActivityFormMessage = document.querySelector('#modal-form-wrapper').querySelector('#form-message');
 
-const modifyUrl = (queryString) => {
-    const {name, value} = queryString;
-    if (value) {
-        const url = new URL(location.href);
-        const params = url.searchParams;
-        params.append(name, value);
-        history.pushState({}, '', url);
-    }
-};
+const clearModalForm = () => {
+    editActivityFormElementsArray.forEach(el => el.removeAttribute('class'));
+    editActivityFormMessage.innerText = '';
+}
 
-const configForm = (editButton) => {
-    const urlSearchParams = new URLSearchParams(location.search);
-    const page = urlSearchParams.get('page') ?? '1';
-    const ID = editButton.getAttribute(constants.dataAttribute)
-    !urlSearchParams.get('modal') && modifyUrl({name: 'modal', value: ID})
+modalCloseButton.addEventListener('click', () => {
+    closeModal();
+    clearModalForm();
+});
 
-    editModal.style.display = constants.displayFlex;
-    modalForm.action = constants.actionFilePath + ID + '&page=' + page;
-};
+editModal.addEventListener('click', (e) => {
+    if (e.target !== editModal) return;
+    closeModal();
+    clearModalForm();
+});
 
-const retrieveData = (editButton) => {
-    const actionCell = editButton.parentElement;
-    const tableRow = Array.from(actionCell.parentElement.children);
-    const dataRow = tableRow.slice(0, tableRow.indexOf(actionCell))
-    const allFormElements = Array.from(modalForm.elements);
-    let formFields = allFormElements.slice(0, allFormElements.length - 1);
-    formFields = [formFields[0], formFields[3], formFields[1], formFields[2], formFields[4]];
-
-    return {formFields, dataRow};
-};
-
-const setFormValues = (formFields, dataRow) => {
-    formFields.forEach((el, idx) => {
-        const data = dataRow[idx];
-
-        if (el.tagName === constants.selectTag) {
-            const option = Array.from(el.children).find(
-                element => element.innerText === data.innerText
-            );
-            el.value = option.value;
-        } else {
-            el.value = data.innerText;
+addEventListener('keyup', (e) => {
+    if (e.key === constants.escapeKey) {
+        if (isModalOpen()) {
+            closeModal();
+            clearModalForm();
         }
-    })
-};
-
-addEventListener('DOMContentLoaded', () => {
-    const modalID = new URLSearchParams(location.search).get('modal');
-    if (modalID) {
-        const editButton = Array.from(editButtons).find(
-            value => value.getAttribute(constants.dataAttribute) === modalID
-        );
-
-        editButton && editButton.click();
     }
 });
 
-[modalCloseButton, editModal].forEach(el => {
-    el.addEventListener('click', (e) => {
-        if (el === editModal) {
-            if (e.target !== editModal) return;
-        }
-        Array.from(modalForm.querySelectorAll('.error')).forEach(el => el.remove());
-        document.cookie = "errors=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    })
-});
-
-editButtons.forEach(editButton => editButton.addEventListener('click', () => {
-    configForm(editButton);
-    const {formFields, dataRow} = retrieveData(editButton);
-    setFormValues(formFields, dataRow);
-}));
+document.querySelector('#add-activity-form').addEventListener('submit', addActivity);
+document.querySelectorAll('.edit-button').forEach(editActivity);
+document.querySelectorAll('.remove-button').forEach(deleteActivity);

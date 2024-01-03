@@ -12,7 +12,7 @@ if (!$validated_id) {
 $columns = ["Name", "Weekday", "Start time", "End time", "Room", "Action"];
 $action = fn($row) => "<td class='action'>
 <a class='button edit-button' data-id='$row[0]'>Edit</a>
-<a class='button remove-button' href='delete-activity.php?id=$row[0]'>Delete</a>
+<a class='button remove-button' data-id='$row[0]'>Delete</a>
 </td>";
 $query = "SELECT
             Activities.ID,

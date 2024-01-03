@@ -11,40 +11,53 @@ body {
 }
 
 h2 {
-    margin: 0;
+    margin-top: 0;
 }
 
 p {
-    font-size: 14px;
+    margin: 5px 0;
+
+    font-size: 13px;
 }
 
-.form-container {
-    box-sizing: border-box;
+#form-wrapper {
     display: flex;
     flex-direction: column;
-    width: 35%;
-    gap: 30px;
+    align-items: center;
     padding: 25px 60px;
     border-radius: var(--radius);
 
     background-color: var(--white);
 }
 
-@media screen and (max-width: 600px) {
-    .form-container {
-        width: 95%;
-        padding: 10px 20px;
-    }
+#register-form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
-@media screen and (min-width: 600px) and (max-width: 768px) {
-    .form-container {
-        width: 55%;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #form-wrapper {
+        width: 45vw;
     }
 }
-
-@media screen and (min-width: 1024px) and (max-width: 1441px){
-    .form-container {
-        width: 40%;
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #form-wrapper {
+        width: 40vw;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #form-wrapper {
+        width: 35vw;
+    }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    #form-wrapper {
+        width: 25vw;
     }
 }

@@ -1,4 +1,8 @@
 <?php
+
+use http\Env\Response;
+use JetBrains\PhpStorm\NoReturn;
+
 function perform_query(mysqli $conn, string $query, array $params, string $types): false|mysqli_result
 {
     $stm = $conn->prepare($query);
@@ -57,3 +61,14 @@ function correct_room(string $value): string|null
 
     return in_array($value, $identifiers) ? $value : null;
 }
+
+function response(int $status_code, array $response_message = null): void
+{
+    http_response_code($status_code);
+    if ($response_message) {
+        exit(json_encode($response_message));
+    }
+
+    exit;
+}
+
