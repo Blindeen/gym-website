@@ -25,3 +25,21 @@ const onSubmit = async (e) => {
 }
 
 enrollmentForm.addEventListener('submit', onSubmit);
+
+const unsubscribeButtons = document.querySelectorAll('.remove-button');
+
+const unsubscribe = (button) => button.addEventListener('click', async () => {
+   const activityID = button.getAttribute('data-id');
+   const url = 'unsubscribe.php?id=' + activityID;
+   const response = await sendRequest(url);
+   if (response.ok) {
+       location.reload();
+   } else {
+       const responseBody = await response.json();
+       const {message, fields} = responseBody;
+       formMessage.setAttribute('class', 'form-error');
+       formMessage.innerText = message;
+   }
+});
+
+unsubscribeButtons.forEach(unsubscribe);
