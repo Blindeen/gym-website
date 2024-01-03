@@ -18,7 +18,7 @@ function menu():void
                 $output .= "<a class='link' href='/trainer-dashboard/index.php'>Dashboard</a>";
                 break;
             case CONSTANTS["CLIENT"]:
-                $output .= "<a class='link' href='/client-dashboard.php'>My activities</a>";
+                $output .= "<a class='link' href='/client-dashboard/index.php'>My activities</a>";
         }
         $output .= "<a class='link' href='/login/logout.php'>Sign out</a>";
     }
