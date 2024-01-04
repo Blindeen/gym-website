@@ -19,10 +19,10 @@ $result = $conn->query(
                        END, StartTime"
 );
 while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-    $id = $row["ID"];
+    $id = htmlspecialchars($row["ID"], ENT_QUOTES, "UTF-8");
     $row["StartTime"] = date("H:i", strtotime($row["StartTime"]));
     $values = array_values(array_slice($row, 1));
     echo "<option value=$id>";
-    echo sprintf("%s | %s | %s | %s %s", ...$values);
+    echo htmlspecialchars(sprintf("%s | %s | %s | %s %s", ...$values), ENT_QUOTES, "UTF-8");
     echo "</option>";
 endwhile;

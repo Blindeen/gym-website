@@ -63,8 +63,8 @@ private_route($trainer, $index);
                             $result = $conn->query("SELECT * FROM Rooms");
                             while ($row = $result->fetch_array(MYSQLI_ASSOC)):
                                 ?>
-                                <option value="<?php echo $row["ID"]; ?>">
-                                    <?php echo $row["RoomNumber"]; ?>
+                                <option value="<?php echo htmlspecialchars($row["ID"], ENT_QUOTES, "UTF-8"); ?>">
+                                    <?php echo htmlspecialchars($row["RoomNumber"], ENT_QUOTES, "UTF-8"); ?>
                                 </option>
                             <?php endwhile; ?>
                         </select>
