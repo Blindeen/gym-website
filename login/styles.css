@@ -25,7 +25,8 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 25px 60px;
+    padding: 20px 30px 20px 30px;
+    height: 300px;
     border-radius: var(--radius);
 
     background-color: var(--white);
@@ -43,11 +44,19 @@ p {
     #form-wrapper {
         width: 40vw;
     }
+
+    #login-form {
+        width: 100%;
+    }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     #form-wrapper {
         width: 25vw;
+    }
+
+    #login-form {
+        width: 100%;
     }
 }
 /* Large devices (laptops/desktops, 992px and up) */
@@ -55,10 +64,18 @@ p {
     #form-wrapper {
         width: 20vw;
     }
+
+    #login-form {
+        width: 90%;
+    }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     #form-wrapper {
-        width: fit-content;
+        width: 15vw;
+    }
+
+    #login-form {
+        width: 80%;
     }
 }
