@@ -4,3 +4,11 @@ export const sendRequest = async (url, formData) => {
         body: formData
     });
 };
+
+export const getSessionStorage = (key) => {
+    return sessionStorage.getItem(key);
+}
+
+export const setSessionStorage = (key, value) => {
+    sessionStorage.setItem(key, value);
+}
