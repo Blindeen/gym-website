@@ -20,7 +20,9 @@ function menu():void
             case CONSTANTS["CLIENT"]:
                 $output .= "<a class='link' href='/client-dashboard/index.php'>My activities</a>";
         }
-        $output .= "<a class='link' href='/login/logout.php'>Sign out</a>";
+        if ($_SESSION["role"] != CONSTANTS["GUEST"]) {
+            $output .= "<a class='link' href='/login/logout.php'>Sign out</a>";
+        }
     }
 
     echo $output;
