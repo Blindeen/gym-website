@@ -35,9 +35,6 @@ try {
     ]);
 }
 
-$user_data = [];
-array_push($user_data, ...$row);
-
 response(200, [
-    "userData" => $user_data,
+    "userData" => array_values($row),
 ]);

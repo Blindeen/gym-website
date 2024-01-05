@@ -25,10 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "birthdate" => FILTER_FLAG_NONE,
         "pass" => FILTER_FLAG_NONE,
         "payment-method" => FILTER_FLAG_NONE,
-        "phone-number" => [
-            "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^[0-9]{9}$/"],
-        ],
         "address-line" => [
             "filter" => FILTER_FLAG_NONE,
         ],
@@ -39,6 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "zip-code" => [
             "filter" => FILTER_VALIDATE_REGEXP,
             "options" => ["regexp" => "/^\d{2}[-\s]\d{3}$/"],
+        ],
+        "phone-number" => [
+            "filter" => FILTER_VALIDATE_REGEXP,
+            "options" => ["regexp" => "/^[0-9]{9}$/"],
         ],
     ];
 
