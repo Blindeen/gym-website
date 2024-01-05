@@ -1,13 +1,13 @@
 <?php
 function table(
-    mysqli $conn,
-    array  $columns,
-    string $query,
-    int    $page,
-    int    $per_page,
+    mysqli   $conn,
+    array    $columns,
+    string   $query,
+    int      $page,
+    int      $per_page,
     callable $action = null,
-    bool   $pagination = false,
-    string $pagination_query = null): void
+    bool     $pagination = false,
+    string   $pagination_query = null): void
 {
     $offset = ($page - 1) * $per_page;
     $data_query = $query . " LIMIT $per_page OFFSET $offset";

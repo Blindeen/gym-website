@@ -1,6 +1,8 @@
 <?php
-require_once '../constants.php';
+require_once "../constants.php";
 
 session_start();
 session_unset();
-header('Location: ' . CONSTANTS['INDEX_PAGE']);
+$_SESSION["role"] = CONSTANTS["GUEST"];
+
+header("Location: " . CONSTANTS["INDEX_PAGE"]);

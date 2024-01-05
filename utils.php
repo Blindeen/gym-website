@@ -1,8 +1,4 @@
 <?php
-
-use http\Env\Response;
-use JetBrains\PhpStorm\NoReturn;
-
 function perform_query(mysqli $conn, string $query, array $params, string $types): false|mysqli_result
 {
     $stm = $conn->prepare($query);
@@ -14,18 +10,16 @@ function perform_query(mysqli $conn, string $query, array $params, string $types
     return $stm->get_result();
 }
 
-function private_route(string|null $expected_account_type, string $redirect_path): void
+function private_route(array $expected_account_type, string $redirect_path): void
 {
     if (!isset($_SESSION)) {
         session_start();
     }
 
-    $role = null;
-    if (isset($_SESSION['role'])) {
-        $role = $_SESSION['role'];
+    $role = $_SESSION["role"] ?? null;
+    if (!in_array($role, $expected_account_type)) {
+        header("Location: " . $redirect_path);
     }
-    $authorization = ($expected_account_type == $role);
-    if (!$authorization) header('Location: ' . $redirect_path);
 }
 
 function prepare_data(array $data): array
@@ -71,4 +65,3 @@ function response(int $status_code, array $response_message = null): void
 
     exit;
 }
-

@@ -5,7 +5,7 @@ require_once "../components/header/index.php";
 
 $conn = db_connection();
 ["CLIENT" => $client, "INDEX_PAGE" => $index] = CONSTANTS;
-private_route($client, $index);
+private_route([$client], $index);
 ?>
 <!DOCTYPE html>
 <html lang="en">
