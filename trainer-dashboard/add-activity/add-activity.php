@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = [
         "activity-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/[A-Z][a-zA-Z]+/"],
+            "options" => ["regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([\s][A-Z][a-zA-Z]\p{L}*)*$/u"],
         ],
         "start-hour" => FILTER_FLAG_NONE,
         "end-hour" => FILTER_FLAG_NONE,
