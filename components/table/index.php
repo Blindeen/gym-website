@@ -55,7 +55,7 @@ function table(
         }
 
         if ($pages_quantity != 0) {
-            echo "<div id='page-number'>$page</div>";
+            echo "$page Of $pages_quantity";
         }
 
         if ($page < $pages_quantity) {
