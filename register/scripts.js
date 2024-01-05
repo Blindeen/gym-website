@@ -29,7 +29,7 @@ const onSubmit = async (e) => {
         const favoriteActivities = JSON.parse(getSessionStorage('favoriteActivities') ?? '[]');
         favoriteActivities.forEach(act => enroll(act));
 
-        setTimeout(() => window.location.replace(location.origin), 1000);
+        setTimeout(() => window.location.replace(location.origin), 2000);
     } else {
         const {fields} = responseBody;
         formMessage.setAttribute('class', 'form-error');
