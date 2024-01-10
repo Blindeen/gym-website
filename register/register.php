@@ -9,11 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = [
         "first-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
         ],
         "last-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
         ],
         "email" => [
             "filter" => FILTER_VALIDATE_EMAIL,
@@ -59,6 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         response(400, $response);
     }
 
+    foreach ($serialized_data as $key => $value) {
+        $serialized_data[$key] = htmlspecialchars(trim($value));
+    }
+
     $serialized_data["password"] = password_hash($serialized_data["password"], PASSWORD_DEFAULT);
 
     $query = "INSERT INTO Members (FirstName, LastName, Email, Password, Birthdate, PassID, PaymentMethodID) 
@@ -94,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $params = array_values(array_slice([...$serialized_data, $member_data["ID"]], 7));
         perform_query($conn, $query, $params, "sssss");
     } catch (mysqli_sql_exception $exception) {
-        $response["message"] = "Server internal error";
+        $response["message"] = $exception->getMessage();
         response(500, $response);
     }
 
