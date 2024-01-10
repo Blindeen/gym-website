@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $params = array_values(array_slice([...$serialized_data, $member_data["ID"]], 7));
         perform_query($conn, $query, $params, "sssss");
     } catch (mysqli_sql_exception $exception) {
-        $response["message"] = $exception->getMessage();
+        $response["message"] = "Server internal error";
         response(500, $response);
     }
 
