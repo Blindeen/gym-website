@@ -1,9 +1,15 @@
-import {sendRequest} from "../utils.js";
+import {sendRequest, getSessionStorage} from "../utils.js";
 
 const registerForm = document.querySelector('#register-form');
 const registerFormElements = registerForm.elements;
 const registerFormElementsArray = Array.from(registerFormElements).slice(0, registerFormElements.length - 1);
 const formMessage = registerForm.querySelector('#form-message');
+
+const enroll = async (activity) => {
+    const formData = new FormData();
+    formData.set('activity', activity.id);
+    await sendRequest('../client-dashboard/enroll.php', formData);
+}
 
 const onSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +25,11 @@ const onSubmit = async (e) => {
     if (response.ok) {
         formMessage.setAttribute('class', 'form-success');
         registerFormElementsArray.forEach(el => el.value = '');
-        setTimeout(() => window.location.replace('http://localhost:81/'), 1000);
+
+        const favoriteActivities = JSON.parse(getSessionStorage('favoriteActivities') ?? '[]');
+        favoriteActivities.forEach(act => enroll(act));
+
+        setTimeout(() => window.location.replace(location.origin), 2000);
     } else {
         const {fields} = responseBody;
         formMessage.setAttribute('class', 'form-error');

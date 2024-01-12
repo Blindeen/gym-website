@@ -1,3 +1,5 @@
+import {setSessionStorage} from "../utils.js";
+
 const likeButtons = document.querySelectorAll('button');
 
 let favoriteActivities = JSON.parse(sessionStorage.getItem('favoriteActivities')) ?? [];
@@ -25,7 +27,7 @@ Array.from(likeButtons).forEach(btn => {
                 btn.innerText = 'Dislike';
             }
 
-            sessionStorage.setItem('favoriteActivities', JSON.stringify(favoriteActivities));
+            setSessionStorage('favoriteActivities', JSON.stringify(favoriteActivities));
         }
     });
 });

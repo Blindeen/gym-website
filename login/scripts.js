@@ -20,7 +20,7 @@ const onSubmit = async (e) => {
     if (response.ok) {
         formMessage.setAttribute('class', 'form-success');
         formElements.forEach(el => el.value = '');
-        setTimeout(() => location.replace(location.origin), 1000);
+        setTimeout(() => location.replace(location.origin), 2000);
     } else {
         formMessage.setAttribute('class', 'form-error');
         switch (message) {

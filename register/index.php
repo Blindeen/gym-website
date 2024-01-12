@@ -4,7 +4,7 @@ require_once "../utils.php";
 
 $conn = db_connection();
 ["GUEST" => $guest, "INDEX_PAGE" => $index] = CONSTANTS;
-private_route($guest, $index);
+private_route([$guest], $index);
 ?>
 <!DOCTYPE html>
 <html lang="en">

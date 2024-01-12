@@ -3,6 +3,9 @@ require_once "constants.php";
 require_once "./components/menu/index.php";
 
 session_start();
+if (!isset($_SESSION["role"])) {
+    $_SESSION["role"] = "Guest";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

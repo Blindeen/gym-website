@@ -28,7 +28,7 @@ if (in_array(null, $validated_data)) {
 $serializer = [
     "activity-name" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => array("regexp" => "/[A-Z]+[a-zA-Z]+/"),
+        "options" => array("regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"),
     ],
     "weekday" => [
         "filter" => FILTER_CALLBACK,
@@ -66,8 +66,9 @@ if (in_array(null, $query_data) || ($end - $start) <= 0) {
 }
 
 $query = "UPDATE Activities SET Name=?, DayOfWeek=?, StartTime=?, EndTime=?, RoomID=? WHERE ID=? AND TrainerID=?";
+$params = array_values([...$query_data, $activity_id, $trainer_id]);
 try {
-    perform_query($conn, $query, array_values([...$query_data, $activity_id, $trainer_id]), "sssssss");
+    perform_query($conn, $query, prepare_data($params), "sssssss");
 } catch (mysqli_sql_exception $exception) {
     response(500, [
         "message" => "Server internal error",

@@ -9,11 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = [
         "first-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z][a-zA-Z]*)([-\s][A-Z][a-zA-Z]*)*$/m"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"],
         ],
         "last-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z][a-zA-Z]*)([-\s][A-Z][a-zA-Z]*)*$/m"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"],
         ],
         "email" => [
             "filter" => FILTER_VALIDATE_EMAIL,
@@ -25,20 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "birthdate" => FILTER_FLAG_NONE,
         "pass" => FILTER_FLAG_NONE,
         "payment-method" => FILTER_FLAG_NONE,
-        "phone-number" => [
-            "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^[0-9]{9}$/"],
-        ],
         "address-line" => [
             "filter" => FILTER_FLAG_NONE,
         ],
         "city" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^[A-Z][a-z]+$/"],
+            "options" => ["regexp" => "/^([A-Z\p{L}]*)([\s][a-z]\p{L}*)*$/u"],
         ],
         "zip-code" => [
             "filter" => FILTER_VALIDATE_REGEXP,
             "options" => ["regexp" => "/^\d{2}[-\s]\d{3}$/"],
+        ],
+        "phone-number" => [
+            "filter" => FILTER_VALIDATE_REGEXP,
+            "options" => ["regexp" => "/^[0-9]{9}$/"],
         ],
     ];
 
@@ -57,6 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         response(400, $response);
+    }
+
+    foreach ($serialized_data as $key => $value) {
+        $serialized_data[$key] = htmlspecialchars(trim($value));
     }
 
     $serialized_data["password"] = password_hash($serialized_data["password"], PASSWORD_DEFAULT);

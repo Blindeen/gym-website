@@ -20,7 +20,7 @@ session_start();
         <?php require_once "activities-table.php" ?>
     </div>
 </main>
-<script src="scripts.js"></script>
+<script type="module" src="scripts.js"></script>
 </body>
 </html>
 

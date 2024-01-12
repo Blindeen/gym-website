@@ -1,13 +1,14 @@
 body {
+    --font: Lato, monospace;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     height: 100vh;
     margin: 0;
 
     background: linear-gradient(0deg, rgb(21, 74, 189) 0.1%, rgb(26, 138, 211) 51.5%, rgb(72, 177, 234) 100.2%);
 
-    font-family: Lato, monospace;
+    font-family: var(--font);
 }
 
 h2 {
@@ -23,16 +24,14 @@ p {
 #form-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px 30px 20px 30px;
-    height: 300px;
+    padding: 25px 60px;
     border-radius: var(--radius);
 
     background-color: var(--white);
 }
 
-#login-form {
+#profile-form {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -42,40 +41,24 @@ p {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     #form-wrapper {
-        width: 40vw;
-    }
-
-    #login-form {
-        width: 100%;
+        width: 45vw;
     }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     #form-wrapper {
-        width: 25vw;
-    }
-
-    #login-form {
-        width: 100%;
+        width: 40vw;
     }
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     #form-wrapper {
-        width: 20vw;
-    }
-
-    #login-form {
-        width: 90%;
+        width: 35vw;
     }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     #form-wrapper {
-        width: 15vw;
-    }
-
-    #login-form {
-        width: 80%;
+        width: 25vw;
     }
 }
