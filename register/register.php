@@ -9,11 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serializer = [
         "first-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"],
         ],
         "last-name" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+            "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"],
         ],
         "email" => [
             "filter" => FILTER_VALIDATE_EMAIL,
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ],
         "city" => [
             "filter" => FILTER_VALIDATE_REGEXP,
-            "options" => ["regexp" => "/^[A-Z][a-z]\p{L}+$/u"],
+            "options" => ["regexp" => "/^([A-Z\p{L}]*)([\s][a-z]\p{L}*)*$/u"],
         ],
         "zip-code" => [
             "filter" => FILTER_VALIDATE_REGEXP,

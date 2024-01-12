@@ -28,7 +28,7 @@ if (in_array(null, $validated_data)) {
 $serializer = [
     "activity-name" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => array("regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([\s][A-Z][a-zA-Z]\p{L}*)*$/u"),
+        "options" => array("regexp" => "/^([A-Z\p{L}][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/u"),
     ],
     "weekday" => [
         "filter" => FILTER_CALLBACK,
