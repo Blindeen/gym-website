@@ -61,34 +61,37 @@ private_route([$trainer, $client], $index);
                 <label for="birthdate">Birthdate</label>
                 <input id="birthdate" type="date" name="birthdate" max="<?php echo date("Y-m-d") ?>" disabled/>
             </div>
-            <div class="form-row">
-                <div class="field">
-                    <label for="payment-method">Payment method</label>
-                    <select id="payment-method" name="payment-method">
-                        <?php
-                        $result = $conn->query("SELECT * FROM PaymentMethods");
-                        while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-                            ?>
-                            <option value="<?php echo $row["ID"]; ?>">
-                                <?php echo $row["Type"]; ?>
-                            </option>
-                        <?php endwhile; ?>
-                    </select>
+            <?php
+            if ($_SESSION["role"] != CONSTANTS["TRAINER"]): ?>
+                <div class="form-row">
+                    <div class="field">
+                        <label for="payment-method">Payment method</label>
+                        <select id="payment-method" name="payment-method">
+                            <?php
+                            $result = $conn->query("SELECT * FROM PaymentMethods");
+                            while ($row = $result->fetch_array(MYSQLI_ASSOC)):
+                                ?>
+                                <option value="<?php echo $row["ID"]; ?>">
+                                    <?php echo $row["Type"]; ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="pass">Pass</label>
+                        <select id="pass" name="pass">
+                            <?php
+                            $result = $conn->query("SELECT * FROM Passes");
+                            while ($row = $result->fetch_array(MYSQLI_ASSOC)):
+                                ?>
+                                <option value="<?php echo $row["ID"]; ?>">
+                                    <?php echo $row["Type"]; ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="pass">Pass</label>
-                    <select id="pass" name="pass">
-                        <?php
-                        $result = $conn->query("SELECT * FROM Passes");
-                        while ($row = $result->fetch_array(MYSQLI_ASSOC)):
-                            ?>
-                            <option value="<?php echo $row["ID"]; ?>">
-                                <?php echo $row["Type"]; ?>
-                            </option>
-                        <?php endwhile; ?>
-                    </select>
-                </div>
-            </div>
+            <?php endif; ?>
             <div class="field">
                 <label for="password">New password</label>
                 <input id="password" name="password" type="password"/>

@@ -16,11 +16,11 @@ $response = [];
 $serializer = [
     "first-name" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => ["regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+        "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
     ],
     "last-name" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => ["regexp" => "/^([A-Z][a-zA-Z]\p{L}*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
+        "options" => ["regexp" => "/^([A-Z\p{L}][a-zA-Z]*)([-\s][A-Z][a-zA-Z]\p{L}*)*$/mu"],
     ],
     "email" => [
         "filter" => FILTER_VALIDATE_EMAIL,
@@ -36,7 +36,7 @@ $serializer = [
     ],
     "city" => [
         "filter" => FILTER_VALIDATE_REGEXP,
-        "options" => ["regexp" => "/^([A-Z]\p{L}*)([\s][a-z]\p{L}*)*$/u"],
+        "options" => ["regexp" => "/^([A-Z\p{L}]*)([\s][a-z]\p{L}*)*$/u"],
     ],
     "zip-code" => [
         "filter" => FILTER_VALIDATE_REGEXP,
@@ -45,6 +45,10 @@ $serializer = [
 ];
 
 $serialized_data = filter_var_array($_POST, $serializer);
+if ($_SESSION["role"] == CONSTANTS["TRAINER"]) {
+    unset($serialized_data["pass"], $serialized_data["payment-method"]);
+}
+
 if (in_array(null, $serialized_data)) {
     foreach ($serialized_data as $key => $value) {
         if ($value == null) {
@@ -72,11 +76,19 @@ if (!empty($_POST["password"])) {
     }
 }
 
-$params = array_values(array_slice($serialized_data, 0, 5));
-$query = "UPDATE Members SET FirstName = ?, LastName = ?, Email = ?, PassID = ?, PaymentMethodID = ?";
+$query = null;
+$params = null;
+if ($_SESSION["role"] == CONSTANTS["TRAINER"]) {
+    $query = "UPDATE Members SET FirstName = ?, LastName = ?, Email = ?";
+    $params = array_values(array_slice($serialized_data, 0, 3));
+} else {
+    $query = "UPDATE Members SET FirstName = ?, LastName = ?, Email = ?, PassID = ?, PaymentMethodID = ?";
+    $params = array_values(array_slice($serialized_data, 0, 5));
+}
+
 if (!is_null($validated_password)) {
     $query .= ", Password = ?";
-    $params[] = $validated_password;
+    $params[] = password_hash($validated_password, PASSWORD_DEFAULT);
 }
 $query .= " WHERE ID = $validated_id";
 
@@ -89,7 +101,12 @@ try {
 }
 
 $query = "UPDATE AddressesContacts SET PhoneNumber = ?, AddressLine = ?, City = ?, PostalCode = ? WHERE MemberID = $validated_id";
-$params = array_values(array_slice($serialized_data, 5));
+$params = null;
+if ($_SESSION["role"] == CONSTANTS["TRAINER"]) {
+    $params = array_values(array_slice($serialized_data, 3));
+} else {
+    $params = array_values(array_slice($serialized_data, 5));
+}
 
 try {
     perform_query($conn, $query, $params, str_repeat("s", count($params)));
@@ -98,5 +115,7 @@ try {
         "message" => "Server internal error",
     ]);
 }
+
+$_SESSION["first-name"] = $serialized_data["first-name"];
 
 response(204);

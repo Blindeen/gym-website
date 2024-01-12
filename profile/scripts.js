@@ -10,7 +10,7 @@ const responseBody = await response.json();
 if (response.ok) {
     const {userData} = responseBody;
     userData.forEach((value, idx) => {
-        formElementsArray[idx].value = value
+        (formElementsArray[idx]) && (formElementsArray[idx].value = value);
     })
 } else {
     const {message} = responseBody;
